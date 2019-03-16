@@ -21,7 +21,7 @@ Get-ChildItem -LiteralPath $helperPath -File | ForEach-Object {. $_.FullName }
 #
 
 # Test the Path Make Sure it Exists
-if (Test-Path -LiteralPath $userProfilePath -ErrorAction SilentlyContinue) {
+if (-not(Test-Path -LiteralPath $userProfilePath -ErrorAction SilentlyContinue)) {
     # Return back to the caller
     return (ConvertTo-Json -InputObject @{ error = "Cannot find the path"})
 }
@@ -39,7 +39,7 @@ try {
 #
 # Test the User Objects
 
-if (Test-ObjectProperty -object $UserObject -properties username, passwords, mfasecretkey, cooldata) {
+if (-not(Test-ObjectProperty -object $UserObject -property username, password, mfasecretkey, cooldata)) {
     # Return to the caller
     return (ConvertTo-Json -InputObject @{ error = "User Validation Failed"})
 }
@@ -54,7 +54,7 @@ if ($UserName -ne $UserObject.username) {
 }
 
 # Validate MFA
-if ((Get-GoogleAuthenticatorPin -Secret $UserObject.mfasecretkey) -eq $MfaPin) {
+if ((Get-GoogleAuthenticatorPin -Secret $UserObject.mfasecretkey)."PIN Code".Replace(" ","") -ne $MfaPin) {
     return (ConvertTo-Json -InputObject @{ error = "Incorrect MFA. Please try again."})
 }
 

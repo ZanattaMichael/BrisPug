@@ -18,7 +18,7 @@ $Script:Base32Charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
 .Example
   # Take a secret code from a real website,
   # but put your own text around it to show in the app
-  PS C:\> New-GoogleAuthenticatorSecret -UseThisSecretCode HP44SIFI2GFDZHT6 -Name "me@example.com" -Issuer "My bank ðŸ’Ž" -Online | fl *
+  PS C:\> New-GoogleAuthenticatorSecret -UseThisSecretCode HP44SIFI2GFDZHT6 -Name "me@example.com" -Issuer "My bank 💎" -Online | fl *
   Secret    : HP44SIFI2GFDZHT6
   KeyUri    : otpauth://totp/me%40example.com?secret=HP44SIFI2GFDZHT6&issuer=My%20bank%20%F0%9F%92%8E
   QrCodeUri : https://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=otpauth%3A%2F%2Ftotp%2Fme%25[..]
@@ -48,7 +48,7 @@ function New-GoogleAuthenticatorSecret
 
         # Issuer is text that will appear over the entry in Google Authenticator app
         [string]
-        $Issuer = 'Example Corp ðŸ˜ƒ'
+        $Issuer = 'Example Corp 😃'
     )
 
 
@@ -208,3 +208,4 @@ function Get-GoogleAuthenticatorPin
         'Seconds Remaining' = ($TimeWindow - ($epochTime % $TimeWindow))
     }
 }
+
