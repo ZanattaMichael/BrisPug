@@ -1,31 +1,28 @@
 <# POST method: $req
-Statuses that will be used during execution
-In Progress - Script has been sent to endpoint. Awaiting results.
-Completed - Script has finished executing and results have been received. 
-Failed - Script has finished executing or thrown an error. No results received. 
+Authors: Michael Zanatta, Christian Coventry
+------------------------------------------------------------------------------------
+Statuses that will be used during execution:
+    In Progress - Script has been sent to endpoint. Awaiting results.
+    Completed - Script has finished executing and results have been received. 
+    Failed - Script has finished executing or thrown an error. No results received. 
 
 REQUEST:
-
-$SendObj = @{
-
-    ComputerName = "Test01"
-    Code = "Base 64 encoded CliXML"
-
+{
+    "ComputerName":  "Test01",
+    "Code":  "Base 64 encoded CliXML"
 }
 
 RESPONSE:
-
 {
     "GUID":  "45f13471-9eea-4463-8b5d-96aa90e02de6",
     "Status":  "In Progress"
 }
-
 #>
 
-#
+
 # Functions to Load
 
-#region Test-Property
+# region Test-Property
 # Function to test if a Property exists in an Object
 # Author: Michael Zanatta
 #----------------------------------------------------------------------------------------------------
@@ -74,24 +71,37 @@ function Test-ObjectProperty() {
 
     Write-Output $result
 }
-#endregion Test-Property
+# endregion Test-Property
 
-#
+
 # Get the Body of the HTML Request
 $requestBody = Get-Content $req -Raw | ConvertFrom-Json
 
 # Validate the Input
 if (-not (Test-ObjectProperty -object $requestBody -property ComputerName, Code)){
-    #This if statement will execute if test-objectproperty evaluates to be false
-    
-
+   
+    # This if statement will execute if Test-ObjectProperty evaluates to be false
+    $Status = "Failed"
+    Write-Host $Status
 }
 
-#
+# 
 # Invoke SQL Query to Add to the Database
 #
 
-# Command Table
+
+# Send the request for information
+
+$SendObj = @{
+
+    ComputerName = "Test01"
+    Code = "Base 64 encoded CliXML"
+
+}
+
+Return ($SendObj | ConvertTo-JSON)
+
+# Create GUID
 
 $GUID = [GUID]::NewGuid().GUID
 
@@ -104,8 +114,12 @@ $ReturnObj = @{
 
 }
 
-#TODO-Future - Results Table
+# TODO-Future - Results Table
 
-#Return the results to the sender. 
+# Return the results to the sender. 
 
 Return ($ReturnObj | ConvertTo-Json)
+
+
+
+
