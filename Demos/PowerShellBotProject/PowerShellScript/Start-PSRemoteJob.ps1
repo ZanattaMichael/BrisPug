@@ -246,7 +246,7 @@ function Start-PSRemoteJob {
     # Parameter Block that is used to be send to the Auzre Function.
 
     $Param = @{
-        ContentType = "application/json"
+        #ContentType = "application/json"
         Method = "POST"
         Uri = $URI
         Body = @{
