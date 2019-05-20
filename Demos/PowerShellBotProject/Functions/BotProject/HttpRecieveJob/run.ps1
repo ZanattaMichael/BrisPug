@@ -1,14 +1,19 @@
 using namespace System.Net
+# AUTHORS: Michael Zanatta, Christian Coventry
 
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
+#=============================================================================================
+#                                      Functions
+#=============================================================================================
 
 # Write to the Azure Functions log stream.
 Write-Host "PowerShell HTTP trigger function processed a request."
 
 # Test the Object Property
 # TODO: Christian
+# Region Test-ObjectProperty
 if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
     # Let's log the Error
     Write-Error "The GUID query key does not exist. Please try again."
@@ -26,8 +31,14 @@ if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
     return
 
 }
+# End Region Test-ObjectProperty
+
 # Get the GUID from the HTML query
 $GUID = $Request.Query.GUID
+
+#============================================================================================
+#                                       SQL Query
+#============================================================================================
 
 # SQL Parameters
 $SQLParams = @{
@@ -72,7 +83,7 @@ try {
 # 1: NoGUID = 404
 # TODO: Christian
 
-# 2: GUIDExists:
+# 2: GUID Exists:
 # Status Codes:
 # a) "In Progress"
 # b) "Completed"
@@ -215,6 +226,11 @@ function Invoke-SQLQuery() {
 }
 #endregion Invoke-SQLQuery
 
+#==============================================================================================
+#                                     Functions Again
+#==============================================================================================
+
+
 
 # region Test-Property
 # Function to test if a Property exists in an Object
@@ -272,7 +288,9 @@ $responsebody = $null
 
 
 
-
+#================================================================================================
+#                                              Main?
+#================================================================================================
 
 # Interact with query parameters or the body of the request.
 $name = $Request.Query.Name
