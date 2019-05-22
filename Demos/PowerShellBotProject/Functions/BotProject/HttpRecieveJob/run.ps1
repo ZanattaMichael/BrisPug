@@ -1,84 +1,6 @@
 using namespace System.Net
 # AUTHORS: Michael Zanatta, Christian Coventry
 
-# Input bindings are passed in via param block.
-param($Request, $TriggerMetadata)
-
-#=============================================================================================
-#                                      Functions
-#=============================================================================================
-
-# Write to the Azure Functions log stream.
-Write-Host "PowerShell HTTP trigger function processed a request."
-
-# Test the Object Property
-# TODO: Christian
-# Region Test-ObjectProperty
-if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
-    # Let's log the Error
-    Write-Error "The GUID query key does not exist. Please try again."
-    #Return an error
-    $status = [HttpStatusCode]::BadRequest
-    $responsebody = @{error = "The GUID query key does not exist. Please try again."}  
-
-    # Associate values to output bindings by calling 'Push-OutputBinding'.
-    Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-        StatusCode = $status
-        Body = $responsebody
-    })
-
-    # Return
-    return
-
-}
-# End Region Test-ObjectProperty
-
-# Get the GUID from the HTML query
-$GUID = $Request.Query.GUID
-
-#============================================================================================
-#                                       SQL Query
-#============================================================================================
-
-# SQL Parameters
-$SQLParams = @{
-    CommandText = ("SELECT InputCLIXML, ComputerNameTarget, GUID, Status WHERE GUID = '{0}'" -f $GUID)
-    DatabaseName = "RemoteBotDatabase"
-    UserName = "";
-    Password = "";
-    InvokeRead = $true
-}
-
-# 
-# Invoke SQL Query to Add to the Database
-
-try {
-
-    #$SQLResponse = Invoke-SQLQuery @SQLParams
-
-    # Test how many results there are:
-    if ($SQLResponse.Count -eq 0) {
-        # SQLResponse Count is 0. No results are returned.
-    } else if ($SQLResponse.Count -gt 1) {
-        # $SQLResponse Count is greater then 1. Multiple Results are returned.
-        # This is unexpected.
-
-    } else {
-        # $SQLResponse Count is equal to 1
-    }
-
-    
-    
-
-
-} catch {
-    # Let's log the Error
-    Write-Error $_
-    # This if statement will execute if Test-ObjectProperty evaluates to be false
-    $status = [HttpStatusCode]::BadRequest
-    $responsebody = @{error = "There was a problem submitting the request"}    
-}   
-
 # Carry out the SQL Lookup.
 # 1: NoGUID = 404
 # TODO: Christian
@@ -94,7 +16,7 @@ try {
 
 # Test Some Properties
 #https://www.google.com?peter=smith&newval=value
-GUID=$GUID
+#GUID=$GUID
 #https://wwww.google.com?GUID=MEH
 #Test the object property
 #Carry out SQL lookup to check to see if GUID exists
@@ -109,6 +31,18 @@ GUID=$GUID
 #
 
 
+
+
+# Declare the Response Body
+$responsebody = $null
+
+
+# Input bindings are passed in via param block.
+param($Request, $TriggerMetadata)
+
+#=============================================================================================
+#                                      Functions
+#=============================================================================================
 #region Invoke-SQLQuery
 #----------------------------------------------------------------------------------------------------
 function Invoke-SQLQuery() {
@@ -226,12 +160,6 @@ function Invoke-SQLQuery() {
 }
 #endregion Invoke-SQLQuery
 
-#==============================================================================================
-#                                     Functions Again
-#==============================================================================================
-
-
-
 # region Test-Property
 # Function to test if a Property exists in an Object
 # Author: Michael Zanatta
@@ -283,29 +211,97 @@ function Test-ObjectProperty() {
 }
 # endregion Test-Property
 
-# Declare the Response Body
-$responsebody = $null
+#=============================================================================================
+#                                      Initialize Code
+#=============================================================================================
 
+if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
+    # Let's log the Error
+    Write-Error "The GUID query key does not exist. Please try again."
 
+    # Associate values to output bindings by calling 'Push-OutputBinding'.
+    Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
+        StatusCode = [HttpStatusCode]::BadRequest
+        Body = @{error = "The GUID query key does not exist. Please try again."}  
+    })
 
-#================================================================================================
-#                                              Main?
-#================================================================================================
+    # Return
+    return
 
-# Interact with query parameters or the body of the request.
-$name = $Request.Query.Name
-if (-not $name) {
-    $name = $Request.Body.Name
 }
 
-if ($name) {
-    $status = [HttpStatusCode]::OK
-    $body = "Hello $name"
+
+#============================================================================================
+#                                       Main
+#============================================================================================
+
+# Get the GUID from the HTML query
+$GUID = $Request.Query.GUID
+
+# SQL Parameters
+$SQLParams = @{
+    CommandText = ("SELECT OutputCLIXML, ComputerNameTarget, GUID, Status WHERE GUID = '{0}'" -f $GUID)
+    DatabaseName = "RemoteBotDatabase"
+    UserName = "";
+    Password = "";
+    InvokeRead = $true
 }
-else {
+
+# 
+# Invoke SQL Query, Get the Request & Validate the Response
+
+try {
+
+    # Invoke the SQL Query and Capture the Output
+    #$SQLResponse = Invoke-SQLQuery @SQLParams
+
+    # Validate the Response:
+
+    # Test how many results there are:
+    if ($SQLResponse.Count -eq 0) {
+        # SQLResponse Count is 0. No results are returned.
+        Throw "No Results Found."        
+    } else if ($SQLResponse.Count -gt 1) {
+        # $SQLResponse Count is greater then 1. Multiple Results are returned.
+        # This is unexpected.
+        Throw "Multiple Results Found."
+    }
+
+    # The $SQLResponse Count is equal to 1
+        
+    # Format our Response
+    $responsebody = @{
+        Success = @{
+            GUID = $SQLResponse.GUID
+            ComputerName = $SQLResponse.ComputerNameTarget
+            Status = $SQLResponse.Status
+        }
+    }
+
+    # Was the job Completed? If so, add the output to the body of the RequestBody
+    if ($responsebody.Status = "Completed") {
+        # Add Output to the Response Body
+        $responsebody.Add("Output", $(
+                # If the String is Empty format the output as $null
+                if ([string]::IsNullOrEmpty($SQLResponse.OutputCLIXML)) {
+                    Write-Output $null
+                } else {
+                    Write-Output $SQLResponse.OutputCLIXML
+                }
+            )   
+        )
+    }
+
+    # Set HTTP Response Code
+    $status = [HttpStatusCode]::OK    
+
+} catch {
+    # Let's log the Error
+    Write-Error $_
+    # This if statement will execute if Test-ObjectProperty evaluates to be false
     $status = [HttpStatusCode]::BadRequest
-    $body = "Please pass a name on the query string or in the request body."
-}
+    $responsebody = @{error = "There was a problem submitting the request"}    
+}   
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
