@@ -31,14 +31,11 @@ using namespace System.Net
 #
 
 
-
+# Input bindings are passed in via param block.
+param($Request, $TriggerMetadata)
 
 # Declare the Response Body
 $responsebody = $null
-
-
-# Input bindings are passed in via param block.
-param($Request, $TriggerMetadata)
 
 #=============================================================================================
 #                                      Functions
@@ -46,6 +43,7 @@ param($Request, $TriggerMetadata)
 #region Invoke-SQLQuery
 #----------------------------------------------------------------------------------------------------
 function Invoke-SQLQuery() {
+
     <#
     .SYNOPSIS
     Invoke's a SQL Query against a SQL Server.
@@ -58,6 +56,9 @@ function Invoke-SQLQuery() {
     AUTHOR  : Michael Zanatta
     CREATED : 15/01/2018
     VERSION : 
+              1.1 - Updates:
+                        Added Support for Microsoft Azure Functions
+                        Michael Zanatta - 24/05/2019
               1.0 - Initial Release
     .INPUTS
     This scripts accepts the SQL Query in the Pipeline.
@@ -80,41 +81,144 @@ function Invoke-SQLQuery() {
      ----------------------------------------------------------------------------------------------------
     #>
 
-#
-# Server=tcp:brispug.database.windows.net,1433;Initial Catalog=RemoteBotDatabase;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-# TODO: ADD USER NAME AND PASSWORD
-
     Param (
-        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true)]
+        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true, ParameterSetName='ManualLoginEncrypt')]
+        [ValidateNotNullOrEmpty()]
         [String]$commandText,
-        [parameter(Mandatory = $true, Position = 1)]
+
+        [parameter(Mandatory = $true, Position = 1, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $true, Position = 1, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $true, Position = 1, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $true, Position = 1, ParameterSetName='ManualLoginEncrypt')]
+        [ValidateNotNullOrEmpty()]
         [String]$ServerName,
-        [parameter(Mandatory = $true, Position = 2)]
+
+        [parameter(Mandatory = $false, Position = 2, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $false, Position = 2, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $false, Position = 2, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $false, Position = 2, ParameterSetName='ManualLoginEncrypt')]
+        [ValidateNotNullOrEmpty()]
+        [String]$ServerPort,
+
+        [parameter(Mandatory = $false, Position = 3, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $false, Position = 3, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $false, Position = 3, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $false, Position = 3, ParameterSetName='ManualLoginEncrypt')]
+        [ValidateNotNullOrEmpty()]
+        [String]$InstanceName,      
+
+        [parameter(Mandatory = $true, Position = 4, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $true, Position = 4, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $true, Position = 4, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $true, Position = 4, ParameterSetName='ManualLoginEncrypt')]
+        [ValidateNotNullOrEmpty()]
         [String]$DatabaseName,
-        [parameter(Mandatory = $false, Position = 3)]
-        [String]$InstanceName,        
-        [parameter(Mandatory = $false, Position = 4)]
-        [Switch]$InvokeRead,
-        [parameter(Mandatory = $true, Position = 5)]
-        [String]$Username,
-        [parameter(Mandatory = $true, Position = 6)]
-        [String]$Password
+
+        [parameter(Mandatory = $true, Position = 5, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $true, Position = 5, ParameterSetName='WindowsLoginEncrypt')]
+        [ValidateNotNullOrEmpty()]
+        [Switch]$IntergratedSecurity,
+
+        [parameter(Mandatory = $true, Position = 5, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $true, Position = 5, ParameterSetName='ManualLoginEncrypt')]
+        [ValidateNotNullOrEmpty()]
+        [PSCredential]$Credential,
+                
+        # Needs to be paramset
+        [parameter(Mandatory = $false, Position = 6, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $false, Position = 6, ParameterSetName='ManualLoginEncrypt')]
+        [Switch]$Encrypt,
+
+        [parameter(Mandatory = $false, Position = 7, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $false, Position = 7, ParameterSetName='ManualLoginEncrypt')]
+        [Switch]$TrustServerCertificate,
+
+        [parameter(Mandatory = $false, Position = 6, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $false, Position = 6, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $false, Position = 8, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $false, Position = 8, ParameterSetName='ManualLoginEncrypt')]
+        [Switch]$MultipleActiveResultSets,               
+
+        [parameter(Mandatory = $false, Position = 6, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $false, Position = 6, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $false, Position = 8, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $false, Position = 8, ParameterSetName='ManualLoginEncrypt')]
+        [Switch]$PersistSecurityInfo,     
+
+        [parameter(Mandatory = $false, Position = 8, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $false, Position = 8, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $false, Position = 10, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $false, Position = 10, ParameterSetName='ManualLoginEncrypt')] 
+        [ValidateNotNullOrEmpty()]       
+        [int]$ConnectionTimeout = 30,
+        
+        [parameter(Mandatory = $false, Position = 9, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory = $false, Position = 9, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory = $false, Position = 11, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory = $false, Position = 11, ParameterSetName='ManualLoginEncrypt')]  
+        [Switch]$InvokeRead
+
     )
-    # Create a DataTable that will be used in the response.
-    $dataTable = New-Object System.Data.DataTable
-    #
-    # Build the Connection String
-    if ($InstanceName) {
-        $SQLConnectionString = "Server=tcp:{0}\{1};Database={2};User ID={3};Password={4};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;" -f $ServerName, $InstanceName, $DatabaseName, $Username, $Password
-    } else {
-        $SQLConnectionString = "Server=tcp:{0};Database={1};User ID={2};Password={3};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;" -f $ServerName, $DatabaseName, $Username, $Password
+
+    # Get the Parameter Set Name
+    $PSName = $PsCmdlet.ParameterSetName
+
+    # Create a Connection String Builder
+    $SQLConnectionStringBuilder = [System.Data.SqlClient.SqlConnectionStringBuilder]::new()
+
+    # Set the Values if they are needed
+    $SQLConnectionStringBuilder["Server"] = $ServerName
+
+    # Set the Instance Name if it exists
+    if ($InstanceName) {$SQLConnectionStringBuilder["Server"] = "{0}\{1}" -f $InstanceName, $SQLConnectionStringBuilder.Server}
+
+    # Set the Server Port if included
+    if ($ServerPort) {$SQLConnectionStringBuilder["Server"] = "{0},{1}" -f $SQLConnectionStringBuilder.Server, $ServerPort}
+
+    # Set the Database Name
+    $SQLConnectionStringBuilder["Initial Catalog"] = $DatabaseName
+
+    # Set Intergrated Security only if the Parameter set was used
+    if (($PSName -eq 'WindowsLogin') -or ($PSName -eq 'WindowsLoginEncrypt')) {
+        $SQLConnectionStringBuilder["Intergrated Security"] = $IntergratedSecurity
     }
 
+    # Set the User Credentials if the Parameter set was used
+    if (($PSName -eq 'ManualLogin') -or ($PSName -eq 'ManualLoginEncrypt')) {
+        # Convert the Secure String into unmanaged Memory
+        $bytestr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Credential.Password) 
+        # Convert into PlainText
+        $PlaintextPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bytestr) 
+        # Set the Values
+        $SQLConnectionStringBuilder["User Id"] = $Credential.UserName
+        $SQLConnectionStringBuilder["Password"] = $PlaintextPassword
+    }
+
+    # Set the Trusted Connection
+    $SQLConnectionStringBuilder["Trusted Connection"] = $TrustedConnection.IsPresent
+
+    # If the Encrypt Parameter was specified, set the encrypt key value
+    if (($PSName -eq 'ManualLoginEncrypt') -or ($PSName -eq 'WindowsLoginEncrypt')) { 
+        $SQLConnectionStringBuilder["Encrypt"] =  $Encrypt.IsPresent
+    }
+        
+    # Set the remainder of Booleen Operations
+    $SQLConnectionStringBuilder["TrustServerCertificate"] = $TrustServerCertificate.IsPresent
+    $SQLConnectionStringBuilder["MultipleActiveResultSets"] = $MultipleActiveResultSets.IsPresent
+    $SQLConnectionStringBuilder["PersistSecurityInfo"] = $PersistSecurityInfo.IsPresent
+    $SQLConnectionStringBuilder["Connection Timeout"] = $ConnectionTimeout.IsPresent
+
+    # Create a DataTable that will be used in the response.
+    $dataTable = [System.Data.DataTable]::new()
+
     # Create the Object and Pass the Connection String into the Constructor
-    $SQLConnection = New-Object System.Data.SqlClient.SqlConnection -ArgumentList $SQLConnectionString
+    $SQLConnection = [System.Data.SqlClient.SqlConnection]::New($SQLConnectionStringBuilder.ConnectionString)
     #
     # Create the Command Object
-    $SQLCommand = New-Object System.data.sqlclient.sqlcommand $commandText, $SQLConnection
+    $SQLCommand = [System.Data.SqlClient.sqlcommand]::New($commandText, $SQLConnection)
     # Update the Query Timeout
     $SQLCommand.CommandTimeout = $xmlSQLConfig.QueryTimeout
     #
@@ -160,6 +264,7 @@ function Invoke-SQLQuery() {
 }
 #endregion Invoke-SQLQuery
 
+
 # region Test-Property
 # Function to test if a Property exists in an Object
 # Author: Michael Zanatta
@@ -190,8 +295,9 @@ function Test-ObjectProperty() {
                 $result = $false
             }
             # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
-            elseif ($object -is [System.Collections.Hashtable]) {
+            elseif (($object -is [System.Collections.Hashtable]) -or ($object -is [System.Collections.Generic.Dictionary])) {
                 # Process as a Dictionary Element
+                "TEST" | out-file -LiteralPath "C:\Temp\success.txt"
                 if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
                     # Update the Result
                     $result = $false
@@ -214,6 +320,10 @@ function Test-ObjectProperty() {
 #=============================================================================================
 #                                      Initialize Code
 #=============================================================================================
+
+
+$Request.Query | gm |  Out-File -LiteralPath "C:\Temp\object.txt"
+
 
 if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
     # Let's log the Error
@@ -238,14 +348,19 @@ if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
 # Get the GUID from the HTML query
 $GUID = $Request.Query.GUID
 
+# Pull the SQL Password
+$SQLPassword = (Get-AzKeyVaultSecret -VaultName BrisPug -Name brispugbotdemo).SecretValue
+
 # SQL Parameters
 $SQLParams = @{
-    CommandText = ("SELECT OutputCLIXML, ComputerNameTarget, GUID, Status WHERE GUID = '{0}'" -f $GUID)
+    CommandText = ("SELECT OutputCLIXML, ComputerNameTarget, GUID, Status FROM [dbo].[remote_code_execution] WHERE GUID = '{0}'" -f $GUID)
     DatabaseName = "RemoteBotDatabase"
-    UserName = "";
-    Password = "";
-    InvokeRead = $true
+    ServerName = "tcp:brispug.database.windows.net"
+    ServerPort = "1433"
+    Credential = [pscredential]::New('brispugbotdemo', $SQLPassword)
+    Encrypt = $true
 }
+
 
 # 
 # Invoke SQL Query, Get the Request & Validate the Response
@@ -253,7 +368,7 @@ $SQLParams = @{
 try {
 
     # Invoke the SQL Query and Capture the Output
-    #$SQLResponse = Invoke-SQLQuery @SQLParams
+    $SQLResponse = Invoke-SQLQuery @SQLParams
 
     # Validate the Response:
 
@@ -261,7 +376,7 @@ try {
     if ($SQLResponse.Count -eq 0) {
         # SQLResponse Count is 0. No results are returned.
         Throw "No Results Found."        
-    } else if ($SQLResponse.Count -gt 1) {
+    } elseif ($SQLResponse.Count -gt 1) {
         # $SQLResponse Count is greater then 1. Multiple Results are returned.
         # This is unexpected.
         Throw "Multiple Results Found."
