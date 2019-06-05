@@ -1,96 +1,76 @@
 using namespace System.Net
-using namespace System.Data.SqlClient
 
-# Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
+# Input bindings are passed in via param block.
 
-Write-Verbose $Request
+<#
+1: Query Server for requested jobs
+    Requires:   ComputerName
 
-# https://devblogs.microsoft.com/scripting/hey-scripting-guy-how-do-i-add-help-information-for-windows-powershell-parameters/
+2: Get the job
+    Perform SQLQuery
 
-<# POST method: $req
-Authors: Michael Zanatta, Christian Coventry
-------------------------------------------------------------------------------------
-Statuses that will be used during execution:
-    In Progress - Script has been sent to endpoint. Awaiting results.
-    Completed - Script has finished executing and results have been received. 
-    Failed - Script has finished executing or thrown an error. No results received. 
+3: Validate Job
+    Check there are:  Multiple Inputs
+    Check for:  Null or Empty Inputs -> Error
 
-REQUEST:
-{
-    "ComputerName":  "Test01",
-    "Code":  "Base 64 encoded CliXML"
-}
+    $TableResponse = Invoke-SQL
 
-RESPONSE:
-{
-    "Success" {
-        "GUID":  "45f13471-9eea-4463-8b5d-96aa90e02de6",
-        "Status":  "In Progress"
+    # Known Good Input
+    $GoodInput = @{ 
+        jobs = $TableResponse.Where{$_.inputclixml -ne [String]::Empty()}
+    } | ConvertTo-Json
+
+    # Invalidate the Bad Input
+    $TableResponse.Where{$_.inputclixml -eq [String]::Empty()} | ForEach-Object {
+
+        # SQL Parameters
+        $SQLParams = @{
+            CommandText = "UPDATE remote_code_execution SET Status = 'error' WHERE GUID = '{0}'";" -f $_.GUID
+            DatabaseName = "RemoteBotDatabase"
+            ServerName = "tcp:brispug.database.windows.net"
+            ServerPort = "1433"
+            Credential = [pscredential]::New('brispugbotdemo', $SQLPassword)
+            Encrypt = $true
+        }
+    
+        # Write the back response back to SQL
+        Try {
+            Invoke-SQL @SQLParams
+        } Catch {
+            # Write Non-Terminating Error
+            Write-Error $_.ErrorMessage                       
+        }
+        
     }
-}
-#>
 
-# ==========================================================================================
-#                                          Functions
-# ==========================================================================================
 
-# Functions to Load
+    # Validate the Scripts
+    ForEach ($row in $TableResponse.Rows) {
 
-# region Test-Property
-# Function to test if a Property exists in an Object
-# Author: Michael Zanatta
-#----------------------------------------------------------------------------------------------------
-function Test-ObjectProperty() {
-    #------------------------------------------------------------------------------------------------
-    param (
-        [parameter(Mandatory, Position = 0)]
-        [AllowNull()]
-        [Object]
-        $object,
-        [parameter(Mandatory, Position = 1)]
-        [string[]]
-        $property
-    )
+        # Test for Null or Empty Inputs
 
-    $result = $true
+        if ([String]::IsNullOrEmpty($row.inputclixml)) {
+            # ERROR HERE
+        }
 
-    #
-    # Use Get Member to Locate the Property. If the collection contains true then the property exists.
-    # If not then it dosen't
-    #
 
-    forEach ($prop in $property) {
-        try {
-            # Return False if the Object is Null
-            if ($object -eq $null) {
-                $result = $false
-            }
-            # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
-            elseif ($object -is [System.Collections.Hashtable]) {
-                # Process as a Dictionary Element
-                if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
-                    # Update the Result
-                    $result = $false
-                }
-            } else {
-                # Process as an PSObject
-                if (-not($object | Get-Member -Name $prop -MemberType Properties, ParameterizedProperty)) {
-                    # Update the Result
-                    $result = $false
-                }
-            }
-        } catch {
+    }
+
+4: Send the Job back
+
+    @{
+        job = @{
+            GUID = GUID OF JOB
+            CLIXML = 
         }
     }
 
-    Write-Output $result
-}
-# endregion Test-Property
-
-#======================================================================================
-#                                            SQL Query
-#======================================================================================
+    Send the job on to be executed.
+#>
+#===================================================================================
+#                                        Functions
+#===================================================================================
 
 #region Invoke-SQLQuery
 #----------------------------------------------------------------------------------------------------
@@ -319,75 +299,155 @@ Wait-Debugger
 }
 #endregion Invoke-SQLQuery
 
+# region Test-Property
+# Function to test if a Property exists in an Object
+# Author: Michael Zanatta
+#----------------------------------------------------------------------------------------------------
+function Test-ObjectProperty() {
+    #------------------------------------------------------------------------------------------------
+    param (
+        [parameter(Mandatory = $true, Position = 0)]
+        [AllowNull()]
+        [Object]
+        $object,
+        [parameter(Mandatory = $true, Position = 1)]
+        [string[]]
+        $property
+    )
 
-# ========================================================================================
-#                                          Main
-# ========================================================================================
-wait-debugger
+    $result = $true
 
-# Create GUID
-$GUID = [GUID]::NewGuid().GUID
+    #
+    # Use Get Member to Locate the Property. If the collection contains true then the property exists.
+    # If not then it dosen't
+    #
+
+    forEach ($prop in $property) {
+        try {
+            # Return False if the Object is Null
+            if ($object -eq $null) {
+                $result = $false
+            }
+            # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
+            elseif (($object -is [System.Collections.Hashtable]) -or ($object -is [System.Collections.Generic.Dictionary])) {
+                # Process as a Dictionary Element
+                "TEST" | out-file -LiteralPath "C:\Temp\success.txt"
+                if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
+                    # Update the Result
+                    $result = $false
+                }
+            } else {
+                # Process as an PSObject
+                if (-not($object | Get-Member -Name $prop -MemberType Properties, ParameterizedProperty)) {
+                    # Update the Result
+                    $result = $false
+                }
+            }
+        } catch {
+        }
+    }
+
+    Write-Output $result
+}
+# endregion Test-Property
+
+#=============================================================================================
+#                                      Initialize Code
+#=============================================================================================
+
+# TO DO: Test-ObjectProperty needs to be fixed. Query String is served as dictonary
+if (-not (Test-ObjectProperty -Object $Request.Query -Property ComputerName)) {
+    # Let's log the Error
+    Write-Error "The ComputerName key does not exist. Please try again."
+
+    # Associate values to output bindings by calling 'Push-OutputBinding'.
+    Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
+        StatusCode = [HttpStatusCode]::BadRequest
+        Body = @{error = "The ComputerName Key/Value is empty. Please try again."}  
+    })
+
+    # Return
+    return
+
+}
+
+#===========================================================================================
+#                                            Main
+#===========================================================================================
+
 
 # Pull the SQL Password
 $SQLPassword = (Get-AzKeyVaultSecret -VaultName BrisPug -Name brispugbotdemo).SecretValue
 
-# Get the Body of the HTML Request
-$requestBody = $Request.Body | ConvertFrom-Json
-
 # Declare the Response Body
 $responsebody = $null
 
-# Validate the Input
-if (-not (Test-ObjectProperty -object $requestBody -property ComputerName, Code)){
-    # Log 
-    Write-Error "Missing ComputerName, Code Property"
+# Define the SQL Query
+# TO DO: ISSUE HERE WITH POSSIBILITY OF EXECUTING THE CODE TWICE DUE TO SERVICE RUNNING JOBS ASYNCHRONOUSLY
+$SQLParams = @{
+    CommandText = "SELECT GUID, InputCliXML FROM remote_code_execution WHERE (ComputerNameTarget = '{0}') AND (Status = 'In Progress');" -f $Request.Query.ComputerName
+    DatabaseName = "RemoteBotDatabase"
+    ServerName = "tcp:brispug.database.windows.net"
+    ServerPort = "1433"
+    Credential = [pscredential]::New('brispugbotdemo', $SQLPassword)
+    Encrypt = $true
+}
 
-    # This if statement will execute if Test-ObjectProperty evaluates to be false
-    $status = [HttpStatusCode]::BadRequest
-    $responsebody = @{error = "Missing ComputerName, Code Property. :-("}
+# 
+# Invoke SQL Query to Get the Jobs
 
-} else {
+try {
+    # Invoke the SQL Query
+    $RequestedJobs = Invoke-SQLQuery @SQLParams
+ 
+} catch {
+    # Let's log the Error
+    Write-Error $_.ErrorMessage
+    # Invalidate the Response
+    Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
+        StatusCode = [HttpStatusCode]::BadRequest
+        Body = @{error = "There was a problem recieving the PowerShell Jobs"}  
+    })
+    # Return back to the parent
+    Return
+}   
 
+#
+# Validate the Response
 
-    $SQLParams = @{
-        CommandText = ("INSERT INTO [dbo].[remote_code_execution] (InputCLIXML, ComputerNameTarget, GUID, Status) VALUES ('{0}', '{1}', '{2}', '{3}')" -f `
-                        $requestBody.Code, $requestBody.ComputerName, $GUID, "In Progress")
+# Check for an Empty String (Nulls are not allowed)
+$responsebody = @{ 
+    jobs = $RequestedJobs.Where{$_.inputclixml -ne [String]::Empty()}
+} | ConvertTo-Json
+
+# Invalidate Jobs that haven't been submitted correctly. If they are bad
+# send an "error" status back the SQL Server
+$RequestedJobs.Where{$_.inputclixml -eq [String]::Empty()} | ForEach-Object {
+
+    # SQL Parameters
+    $SQLErrorParams = @{
+        CommandText = "UPDATE remote_code_execution SET Status = 'error' WHERE GUID = '{0}';" -f $_.GUID
+        DatabaseName = "RemoteBotDatabase"
         ServerName = "tcp:brispug.database.windows.net"
         ServerPort = "1433"
-        DatabaseName = "RemoteBotDatabase"
         Credential = [pscredential]::New('brispugbotdemo', $SQLPassword)
         Encrypt = $true
     }
 
-    # 
-    # Invoke SQL Query to Add to the Database
-
-    try {
-
-        Invoke-SQLQuery @SQLParams
-
-        #
-        # Return object. Contains information that will returned to the sender. 
-        $status = [HttpStatusCode]::OK
-        $responsebody = @{
-            success = @{
-                GUID = $GUID
-                Status = "In Progress"
-            }
-        }
-        
-    } catch {
-        # Let's log the Error
-        Write-Error $_
-        # This if statement will execute if Test-ObjectProperty evaluates to be false
-        $status = [HttpStatusCode]::BadRequest
-        $responsebody = @{error = "There was a problem submitting the request"}    
-    }   
-
+    # Write the back response back to SQL
+    Try {
+        Invoke-SQL @SQLErrorParams
+    } Catch {
+        # Write Non-Terminating Error
+        Write-Error $_.ErrorMessage                       
+    }
+    
 }
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-    StatusCode = $status
+    StatusCode = [HttpStatusCode]::OK
     Body = $responsebody
 })
+
+

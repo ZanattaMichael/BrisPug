@@ -1,6 +1,13 @@
 {
     "version": "0.2.0",
     "configurations": [
+
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
         {
             "name": "PowerShell Attach to Host Process",
             "type": "PowerShell",
@@ -35,14 +42,6 @@
             "type": "PowerShell",
             "request": "launch",
             "cwd": ""
-        },
-        {
-            "name": "Attach to PowerShell Functions",
-            "type": "PowerShell",
-            "request": "attach",
-            "customPipeName": "AzureFunctionsPSWorker",
-            "runspaceId": 1,
-            "preLaunchTask": "func: host start"
         }
     ]
 }

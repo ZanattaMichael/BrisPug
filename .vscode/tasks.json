@@ -7,7 +7,7 @@
             "problemMatcher": "$func-watch",
             "isBackground": true,
             "options": {
-                "cwd": "D:\\Code\\BrisPug\\Demos\\PowerShellBotProject\\Functions\\BotProject\\"
+                
             }
         }
     ]
