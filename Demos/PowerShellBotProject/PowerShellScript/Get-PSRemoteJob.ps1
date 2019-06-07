@@ -14,6 +14,54 @@
 
 
 
+# region Test-Property
+# Function to test if a Property exists in an Object
+# Author: Michael Zanatta
+#----------------------------------------------------------------------------------------------------
+function Test-ObjectProperty() {
+    #------------------------------------------------------------------------------------------------
+    param (
+        [parameter(Mandatory, Position = 0)]
+        [AllowNull()]
+        [Object]
+        $object,
+        [parameter(Mandatory, Position = 1)]
+        [string[]]
+        $property
+    )
+
+    $result = $true
+
+    #
+    # Use Get Member to Locate the Property. If the collection contains true then the property exists.
+    # If not then it dosen't
+    #
+
+    if ($object -eq $null) {
+        # Return False since the object dosen't exist
+        return $false
+    }
+
+    # Convert to Json and Back into PSObject
+    $object = $object | ConvertTo-Json | ConvertFrom-Json
+
+    # Iterate Through each of the Properties within the Object
+    forEach ($prop in $property) {
+        try {
+            # Process as an PSObject
+            if (-not($object | Get-Member -Name $prop -MemberType Properties, ParameterizedProperty -ErrorAction Stop)) {
+                # Update the Result
+                $result = $false
+            }
+
+        } catch {
+            Write-Error $_.ErrorDetails
+        }
+    }
+
+    Write-Output $result
+}
+# endregion Test-Property
 
 
 
@@ -272,17 +320,20 @@ function Get-PSRemoteJob {
         $result = Invoke-RestMethod @Param
         # Format the Response
 
-        # Was the job Completed? If so, add the output to the body of the RequestBody
-        if ($result.Success.Status = "Completed") {
+        # Test for the $result.success.status property. If the property dosen't exist, then write "No Response"
+        if (-not(Test-ObjectProperty -object $result.Success -property Status)) {
+
+            # Write output
+            Write-Output ([PSCustomObject]@{Response = "No Response"})
+
+        } elseif ($result.Success.Status -eq "Completed") {
             [PSCustomObject]$result.Success.Output = $(
                 if ($result.Success.Output -ne $null) {
                     # Format the output.
                     # Output is encoded in BASE64 & Serialized as JSON
                     Write-Output ($result.Success.Output | ConvertFrom-Base64 | ConvertFrom-Json)
                 } else {
-                    Write-Output [[PSCustomObject]@{
-                        Response = "No Response"
-                    }]
+                    Write-Output ([PSCustomObject]@{Response = "No Response"})
                 }
             )
         }
@@ -290,6 +341,7 @@ function Get-PSRemoteJob {
 
     } catch {
         Write-Error $_
+        
     }
     
     Write-Output $result

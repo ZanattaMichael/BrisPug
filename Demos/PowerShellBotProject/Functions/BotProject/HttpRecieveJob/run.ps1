@@ -40,6 +40,7 @@ $responsebody = $null
 #=============================================================================================
 #                                      Functions
 #=============================================================================================
+
 #region Invoke-SQLQuery
 #----------------------------------------------------------------------------------------------------
 function Invoke-SQLQuery() {
@@ -82,86 +83,87 @@ function Invoke-SQLQuery() {
     #>
 
     Param (
-        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $true, Position = 0, ValueFromPipeline=$true, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='ManualLoginEncrypt')]
         [ValidateNotNullOrEmpty()]
         [String]$commandText,
 
-        [parameter(Mandatory = $true, Position = 1, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $true, Position = 1, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $true, Position = 1, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $true, Position = 1, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Mandatory, Position = 1, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory, Position = 1, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory, Position = 1, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory, Position = 1, ParameterSetName='ManualLoginEncrypt')]
         [ValidateNotNullOrEmpty()]
         [String]$ServerName,
 
-        [parameter(Mandatory = $false, Position = 2, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $false, Position = 2, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $false, Position = 2, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $false, Position = 2, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Position = 2, ParameterSetName='WindowsLogin')]
+        [parameter(Position = 2, ParameterSetName='ManualLogin')]
+        [parameter(Position = 2, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Position = 2, ParameterSetName='ManualLoginEncrypt')]
         [ValidateNotNullOrEmpty()]
         [String]$ServerPort,
 
-        [parameter(Mandatory = $false, Position = 3, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $false, Position = 3, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $false, Position = 3, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $false, Position = 3, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Position = 3, ParameterSetName='WindowsLogin')]
+        [parameter(Position = 3, ParameterSetName='ManualLogin')]
+        [parameter(Position = 3, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Position = 3, ParameterSetName='ManualLoginEncrypt')]
         [ValidateNotNullOrEmpty()]
         [String]$InstanceName,      
 
-        [parameter(Mandatory = $true, Position = 4, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $true, Position = 4, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $true, Position = 4, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $true, Position = 4, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Mandatory, Position = 4, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory, Position = 4, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory, Position = 4, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory, Position = 4, ParameterSetName='ManualLoginEncrypt')]
         [ValidateNotNullOrEmpty()]
         [String]$DatabaseName,
 
-        [parameter(Mandatory = $true, Position = 5, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $true, Position = 5, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Mandatory, Position = 5, ParameterSetName='WindowsLogin')]
+        [parameter(Mandatory, Position = 5, ParameterSetName='WindowsLoginEncrypt')]
         [ValidateNotNullOrEmpty()]
         [Switch]$IntergratedSecurity,
 
-        [parameter(Mandatory = $true, Position = 5, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $true, Position = 5, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Mandatory, Position = 5, ParameterSetName='ManualLogin')]
+        [parameter(Mandatory, Position = 5, ParameterSetName='ManualLoginEncrypt')]
         [ValidateNotNullOrEmpty()]
         [PSCredential]$Credential,
                 
         # Needs to be paramset
-        [parameter(Mandatory = $false, Position = 6, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $false, Position = 6, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Position = 6, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Position = 6, ParameterSetName='ManualLoginEncrypt')]
         [Switch]$Encrypt,
 
-        [parameter(Mandatory = $false, Position = 7, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $false, Position = 7, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Position = 7, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Position = 7, ParameterSetName='ManualLoginEncrypt')]
         [Switch]$TrustServerCertificate,
 
-        [parameter(Mandatory = $false, Position = 6, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $false, Position = 6, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $false, Position = 8, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $false, Position = 8, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Position = 6, ParameterSetName='WindowsLogin')]
+        [parameter(Position = 6, ParameterSetName='ManualLogin')]
+        [parameter(Position = 8, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Position = 8, ParameterSetName='ManualLoginEncrypt')]
         [Switch]$MultipleActiveResultSets,               
 
-        [parameter(Mandatory = $false, Position = 6, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $false, Position = 6, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $false, Position = 8, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $false, Position = 8, ParameterSetName='ManualLoginEncrypt')]
+        [parameter(Position = 6, ParameterSetName='WindowsLogin')]
+        [parameter(Position = 6, ParameterSetName='ManualLogin')]
+        [parameter(Position = 8, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Position = 8, ParameterSetName='ManualLoginEncrypt')]
         [Switch]$PersistSecurityInfo,     
 
-        [parameter(Mandatory = $false, Position = 8, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $false, Position = 8, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $false, Position = 10, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $false, Position = 10, ParameterSetName='ManualLoginEncrypt')] 
+        [parameter(Position = 8, ParameterSetName='WindowsLogin')]
+        [parameter(Position = 8, ParameterSetName='ManualLogin')]
+        [parameter(Position = 10, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Position = 10, ParameterSetName='ManualLoginEncrypt')] 
         [ValidateNotNullOrEmpty()]       
         [int]$ConnectionTimeout = 30,
         
-        [parameter(Mandatory = $false, Position = 9, ParameterSetName='WindowsLogin')]
-        [parameter(Mandatory = $false, Position = 9, ParameterSetName='ManualLogin')]
-        [parameter(Mandatory = $false, Position = 11, ParameterSetName='WindowsLoginEncrypt')]
-        [parameter(Mandatory = $false, Position = 11, ParameterSetName='ManualLoginEncrypt')]  
+        [parameter(Position = 9, ParameterSetName='WindowsLogin')]
+        [parameter(Position = 9, ParameterSetName='ManualLogin')]
+        [parameter(Position = 11, ParameterSetName='WindowsLoginEncrypt')]
+        [parameter(Position = 11, ParameterSetName='ManualLoginEncrypt')]  
         [Switch]$InvokeRead
 
     )
+
 
     # Get the Parameter Set Name
     $PSName = $PsCmdlet.ParameterSetName
@@ -264,7 +266,6 @@ function Invoke-SQLQuery() {
 }
 #endregion Invoke-SQLQuery
 
-
 # region Test-Property
 # Function to test if a Property exists in an Object
 # Author: Michael Zanatta
@@ -272,11 +273,11 @@ function Invoke-SQLQuery() {
 function Test-ObjectProperty() {
     #------------------------------------------------------------------------------------------------
     param (
-        [parameter(Mandatory = $true, Position = 0)]
+        [parameter(Mandatory, Position = 0)]
         [AllowNull()]
         [Object]
         $object,
-        [parameter(Mandatory = $true, Position = 1)]
+        [parameter(Mandatory, Position = 1)]
         [string[]]
         $property
     )
@@ -288,28 +289,25 @@ function Test-ObjectProperty() {
     # If not then it dosen't
     #
 
+    if ($object -eq $null) {
+        # Return False since the object dosen't exist
+        return $false
+    }
+
+    # Convert to Json and Back into PSObject
+    $object = $object | ConvertTo-Json | ConvertFrom-Json
+
+    # Iterate Through each of the Properties within the Object
     forEach ($prop in $property) {
         try {
-            # Return False if the Object is Null
-            if ($object -eq $null) {
+            # Process as an PSObject
+            if (-not($object | Get-Member -Name $prop -MemberType Properties, ParameterizedProperty -ErrorAction Stop)) {
+                # Update the Result
                 $result = $false
             }
-            # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
-            elseif (($object -is [System.Collections.Hashtable]) -or ($object -is [System.Collections.Generic.Dictionary])) {
-                # Process as a Dictionary Element
-                "TEST" | out-file -LiteralPath "C:\Temp\success.txt"
-                if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
-                    # Update the Result
-                    $result = $false
-                }
-            } else {
-                # Process as an PSObject
-                if (-not($object | Get-Member -Name $prop -MemberType Properties, ParameterizedProperty)) {
-                    # Update the Result
-                    $result = $false
-                }
-            }
+
         } catch {
+            Write-Error $_.ErrorDetails
         }
     }
 
@@ -321,10 +319,7 @@ function Test-ObjectProperty() {
 #                                      Initialize Code
 #=============================================================================================
 
-
-$Request.Query | gm |  Out-File -LiteralPath "C:\Temp\object.txt"
-
-
+    
 if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
     # Let's log the Error
     Write-Error "The GUID query key does not exist. Please try again."
@@ -351,6 +346,8 @@ $GUID = $Request.Query.GUID
 # Pull the SQL Password
 $SQLPassword = (Get-AzKeyVaultSecret -VaultName BrisPug -Name brispugbotdemo).SecretValue
 
+
+
 # SQL Parameters
 $SQLParams = @{
     CommandText = ("SELECT OutputCLIXML, ComputerNameTarget, GUID, Status FROM [dbo].[remote_code_execution] WHERE GUID = '{0}'" -f $GUID)
@@ -364,6 +361,11 @@ $SQLParams = @{
 
 # 
 # Invoke SQL Query, Get the Request & Validate the Response
+
+# This is where we will wait for the debugger to attach
+# TODO: DON'T FORGET TO REMOVE ME! :-p
+Wait-Debugger
+
 
 try {
 
@@ -421,5 +423,5 @@ try {
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = $status
-    Body = $body
+    Body = $responsebody
 })
