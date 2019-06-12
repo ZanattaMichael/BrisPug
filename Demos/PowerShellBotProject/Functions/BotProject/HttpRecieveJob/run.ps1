@@ -339,14 +339,15 @@ if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
 #============================================================================================
 #                                       Main
 #============================================================================================
+# This is where we will wait for the debugger to attach
+# TODO: DON'T FORGET TO REMOVE ME! :-p
+Wait-Debugger
 
 # Get the GUID from the HTML query
 $GUID = $Request.Query.GUID
 
 # Pull the SQL Password
 $SQLPassword = (Get-AzKeyVaultSecret -VaultName BrisPug -Name brispugbotdemo).SecretValue
-
-
 
 # SQL Parameters
 $SQLParams = @{
@@ -362,9 +363,6 @@ $SQLParams = @{
 # 
 # Invoke SQL Query, Get the Request & Validate the Response
 
-# This is where we will wait for the debugger to attach
-# TODO: DON'T FORGET TO REMOVE ME! :-p
-Wait-Debugger
 
 
 try {

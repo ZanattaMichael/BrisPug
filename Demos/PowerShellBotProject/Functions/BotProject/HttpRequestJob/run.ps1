@@ -385,7 +385,7 @@ $responsebody = $null
 # Define the SQL Query
 # TO DO: ISSUE HERE WITH POSSIBILITY OF EXECUTING THE CODE TWICE DUE TO SERVICE RUNNING JOBS ASYNCHRONOUSLY
 $SQLParams = @{
-    CommandText = "SELECT GUID, InputCliXML FROM remote_code_execution WHERE (ComputerNameTarget = '{0}') AND (Status = 'In Progress');" -f $Request.Query.ComputerName
+    CommandText = "SELECT GUID, InputCliXML FROM remote_code_execution WHERE (ComputerNameTarget = '{0}') AND (Status = 'Queued');" -f $Request.Query.ComputerName
     DatabaseName = "RemoteBotDatabase"
     ServerName = "tcp:brispug.database.windows.net"
     ServerPort = "1433"
