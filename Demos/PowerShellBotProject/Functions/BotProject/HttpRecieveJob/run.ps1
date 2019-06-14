@@ -1,35 +1,4 @@
 using namespace System.Net
-# AUTHORS: Michael Zanatta, Christian Coventry
-
-# Carry out the SQL Lookup.
-# 1: NoGUID = 404
-# TODO: Christian
-
-# 2: GUID Exists:
-# Status Codes:
-# a) "In Progress"
-# b) "Completed"
-# c) "Why am I here. What's broken?"
-
-# Returning the Infomation
-
-
-# Test Some Properties
-#https://www.google.com?peter=smith&newval=value
-#GUID=$GUID
-#https://wwww.google.com?GUID=MEH
-#Test the object property
-#Carry out SQL lookup to check to see if GUID exists
-#If GUID does not exist, send error 404
-#GUID exists
-#InputCLIXML, ComputerNameTarget, GUID, Status
-# Filtering on Status
-# IF Status -eq "In Progress" 
-# ELSEIF Status -eq "Completed"
-# ELSE ("WHY AM I HERE?")
-# Returning the Information
-#
-
 
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
@@ -81,7 +50,7 @@ function Invoke-SQLQuery() {
     
      ----------------------------------------------------------------------------------------------------
     #>
-
+    [Parameter(ParameterSetName='WindowsLogin')]
     Param (
         [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='WindowsLogin')]
         [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='ManualLogin')]
@@ -339,9 +308,6 @@ if (-not (Test-ObjectProperty -Object $Request.Query -Property GUID)) {
 #============================================================================================
 #                                       Main
 #============================================================================================
-# This is where we will wait for the debugger to attach
-# TODO: DON'T FORGET TO REMOVE ME! :-p
-Wait-Debugger
 
 # Get the GUID from the HTML query
 $GUID = $Request.Query.GUID
@@ -357,13 +323,11 @@ $SQLParams = @{
     ServerPort = "1433"
     Credential = [pscredential]::New('brispugbotdemo', $SQLPassword)
     Encrypt = $true
+    InvokeRead = $true
 }
-
 
 # 
 # Invoke SQL Query, Get the Request & Validate the Response
-
-
 
 try {
 

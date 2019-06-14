@@ -92,6 +92,7 @@ function Test-ObjectProperty() {
 #                                            SQL Query
 #======================================================================================
 
+
 #region Invoke-SQLQuery
 #----------------------------------------------------------------------------------------------------
 function Invoke-SQLQuery() {
@@ -132,7 +133,7 @@ function Invoke-SQLQuery() {
     
      ----------------------------------------------------------------------------------------------------
     #>
-
+    [Parameter(ParameterSetName='WindowsLogin')]
     Param (
         [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='WindowsLogin')]
         [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='ManualLogin')]
@@ -215,8 +216,6 @@ function Invoke-SQLQuery() {
 
     )
 
-# This is where we will wait for the debugger to attach
-Wait-Debugger
 
     # Get the Parameter Set Name
     $PSName = $PsCmdlet.ParameterSetName
@@ -319,7 +318,6 @@ Wait-Debugger
 }
 #endregion Invoke-SQLQuery
 
-
 # ========================================================================================
 #                                          Main
 # ========================================================================================
@@ -344,14 +342,14 @@ if (-not (Test-ObjectProperty -object $requestBody -property ComputerName, Code)
 
     # This if statement will execute if Test-ObjectProperty evaluates to be false
     $status = [HttpStatusCode]::BadRequest
-    $responsebody = @{error = "Missing ComputerName, Code Property. :-("}
+    $responsebody = @{error = "Missing ComputerName, Code Property."}
 
 } else {
 
 
     $SQLParams = @{
         CommandText = ("INSERT INTO [dbo].[remote_code_execution] (InputCLIXML, ComputerNameTarget, GUID, Status) VALUES ('{0}', '{1}', '{2}', '{3}')" -f `
-                        $requestBody.Code, $requestBody.ComputerName, $GUID, "In Progress")
+                        $requestBody.Code, $requestBody.ComputerName, $GUID, "Queued")
         ServerName = "tcp:brispug.database.windows.net"
         ServerPort = "1433"
         DatabaseName = "RemoteBotDatabase"

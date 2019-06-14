@@ -10,11 +10,11 @@ function Test-ObjectProperty() {
     #------------------------------------------------------------------------------------------------
     #------------------------------------------------------------------------------------------------
     param (
-        [parameter(Mandatory = $true, Position = 0)]
+        [parameter(Mandatory, Position = 0)]
         [AllowNull()]
         [Object]
         $object,
-        [parameter(Mandatory = $true, Position = 1)]
+        [parameter(Mandatory, Position = 1)]
         [string[]]
         $property
     )

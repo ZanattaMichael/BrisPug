@@ -72,6 +72,7 @@ param($Request, $TriggerMetadata)
 #                                        Functions
 #===================================================================================
 
+
 #region Invoke-SQLQuery
 #----------------------------------------------------------------------------------------------------
 function Invoke-SQLQuery() {
@@ -112,7 +113,7 @@ function Invoke-SQLQuery() {
     
      ----------------------------------------------------------------------------------------------------
     #>
-
+    [Parameter(ParameterSetName='WindowsLogin')]
     Param (
         [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='WindowsLogin')]
         [parameter(Mandatory, Position = 0, ValueFromPipeline, ParameterSetName='ManualLogin')]
@@ -195,8 +196,6 @@ function Invoke-SQLQuery() {
 
     )
 
-# This is where we will wait for the debugger to attach
-Wait-Debugger
 
     # Get the Parameter Set Name
     $PSName = $PsCmdlet.ParameterSetName
@@ -391,6 +390,7 @@ $SQLParams = @{
     ServerPort = "1433"
     Credential = [pscredential]::New('brispugbotdemo', $SQLPassword)
     Encrypt = $true
+    InvokeRead = $true
 }
 
 # 
