@@ -1,6 +1,6 @@
 
 
-# region Test-ObjectProperty
+#region Test-ObjectProperty
 # Function to test if a Property exists in an Object
 # Author: Michael Zanatta
 #----------------------------------------------------------------------------------------------------
@@ -52,4 +52,4 @@ function Test-ObjectProperty() {
     Write-Output $result
 
 }
-# endregion Test-ObjectProperty
+#endregion Test-ObjectProperty

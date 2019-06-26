@@ -298,18 +298,19 @@ function Invoke-SQLQuery() {
 }
 #endregion Invoke-SQLQuery
 
-# region Test-Property
+#region Test-ObjectProperty
 # Function to test if a Property exists in an Object
 # Author: Michael Zanatta
 #----------------------------------------------------------------------------------------------------
 function Test-ObjectProperty() {
     #------------------------------------------------------------------------------------------------
+    #------------------------------------------------------------------------------------------------
     param (
-        [parameter(Mandatory = $true, Position = 0)]
+        [parameter(Mandatory, Position = 0)]
         [AllowNull()]
         [Object]
         $object,
-        [parameter(Mandatory = $true, Position = 1)]
+        [parameter(Mandatory, Position = 1)]
         [string[]]
         $property
     )
@@ -328,7 +329,7 @@ function Test-ObjectProperty() {
                 $result = $false
             }
             # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
-            elseif (($object -is [System.Collections.Hashtable]) -or ($object -is [System.Collections.Generic.Dictionary])) {
+            elseif (($object -is [System.Collections.Hashtable]) -or ($object.GetType() -like "*Dictonary*")) {
                 # Process as a Dictionary Element
                 "TEST" | out-file -LiteralPath "C:\Temp\success.txt"
                 if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
@@ -347,8 +348,9 @@ function Test-ObjectProperty() {
     }
 
     Write-Output $result
+
 }
-# endregion Test-Property
+#endregion Test-ObjectProperty
 
 #=============================================================================================
 #                                      Initialize Code
