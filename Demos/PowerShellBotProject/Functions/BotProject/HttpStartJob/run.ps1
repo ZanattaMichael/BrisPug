@@ -12,7 +12,8 @@ Write-Verbose $Request
 Authors: Michael Zanatta, Christian Coventry
 ------------------------------------------------------------------------------------
 Statuses that will be used during execution:
-    In Progress - Script has been sent to endpoint. Awaiting results.
+    Queued - Script has been sent to endpoint. Awaiting execution.
+    In Progress - Script has been executed. Awaiting results.
     Completed - Script has finished executing and results have been received. 
     Failed - Script has finished executing or thrown an error. No results received. 
 
