@@ -27,7 +27,7 @@ RESPONSE:
 {
     "Success" {
         "GUID":  "45f13471-9eea-4463-8b5d-96aa90e02de6",
-        "Status":  "In Progress"
+        "Status":  "queued"
     }
 }
 #>
@@ -69,9 +69,8 @@ function Test-ObjectProperty() {
                 $result = $false
             }
             # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
-            elseif (($object -is [System.Collections.Hashtable]) -or ($object.GetType() -like "*Dictonary*")) {
+            elseif (($object -is [System.Collections.Hashtable]) -or ($object.GetType().Name -like "*Dictonary*")) {
                 # Process as a Dictionary Element
-                "TEST" | out-file -LiteralPath "C:\Temp\success.txt"
                 if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
                     # Update the Result
                     $result = $false
@@ -91,11 +90,6 @@ function Test-ObjectProperty() {
 
 }
 #endregion Test-ObjectProperty
-
-#======================================================================================
-#                                            SQL Query
-#======================================================================================
-
 
 #region Invoke-SQLQuery
 #----------------------------------------------------------------------------------------------------
@@ -322,6 +316,96 @@ function Invoke-SQLQuery() {
 }
 #endregion Invoke-SQLQuery
 
+
+function ConvertTo-Base64 {
+    <#
+    
+    .SYNOPSIS
+    Converts a string to a Base64 String
+    
+    .DESCRIPTION
+    Converts a string to a Base64 String
+    
+    .EXAMPLE
+    "asdadasdasdasd" | ConvertTo-Base64
+    
+    .NOTES
+    Example Output:
+    
+    (BASE64 String)YQBzAGQAYQBkAGEAcwBkAGEAcwBkAGEAcwBkAA==
+                                                                                                                               
+    .LINK
+    https://au.linkedin.com/in/michael-zanatta-61670258
+    
+#>
+    [CmdletBinding()]
+    Param (
+    
+        [parameter(
+            ValueFromPipeline=$True,
+            Mandatory=$true
+        )]
+        [String]$String
+
+    )
+
+    # 
+    # This function converts a string into BASE64
+    #
+    begin {
+
+    
+        #
+        # region Initalize code
+        #
+        Write-Verbose "[CMDLET] ConvertTo-Base64"
+        Write-Verbose "{BEGIN} START"
+        
+        #
+        # endregion Initalize code
+        #       
+
+    } 
+
+    process {
+        
+        #
+        # region Process code
+        #
+        Write-Verbose "{PROCESS} START"
+        Write-Verbose "Converting String to BASE64. DUMP:"
+        Write-Verbose "$String"
+
+        $obj = [System.Convert]::ToBase64String(([System.Text.Encoding]::UTF8.GetBytes($String)))
+
+        Write-Verbose "Converted to:"
+        Write-Verbose $obj
+        
+        #
+        # endregion Process code
+        #
+
+    }
+
+    end {
+
+        #
+        # region Cleanup code
+        #
+        Write-Verbose "{END} START"
+
+        return $obj
+
+        #
+        # endregion Cleanup code
+        #
+
+
+    }
+
+}
+
+
 # ========================================================================================
 #                                          Main
 # ========================================================================================
@@ -334,13 +418,13 @@ $GUID = [GUID]::NewGuid().GUID
 $SQLPassword = (Get-AzKeyVaultSecret -VaultName BrisPug -Name brispugbotdemo).SecretValue
 
 # Get the Body of the HTML Request
-$requestBody = $Request.Body | ConvertFrom-Json
+$requestBody = $Request.Body
 
 # Declare the Response Body
 $responsebody = $null
 
 # Validate the Input
-if (-not (Test-ObjectProperty -object $requestBody -property ComputerName, Code)){
+if ((-not (Test-ObjectProperty -object $requestBody -property ComputerName, Code)) -and ($requestBody.Count -ne 2)){
     # Log 
     Write-Error "Missing ComputerName, Code Property"
 
@@ -374,7 +458,7 @@ if (-not (Test-ObjectProperty -object $requestBody -property ComputerName, Code)
         $responsebody = @{
             success = @{
                 GUID = $GUID
-                Status = "In Progress"
+                Status = "queued"
             }
         }
         

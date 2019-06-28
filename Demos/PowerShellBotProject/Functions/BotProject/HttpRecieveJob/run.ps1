@@ -268,7 +268,6 @@ function Test-ObjectProperty() {
             # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
             elseif (($object -is [System.Collections.Hashtable]) -or ($object.GetType() -like "*Dictonary*")) {
                 # Process as a Dictionary Element
-                "TEST" | out-file -LiteralPath "C:\Temp\success.txt"
                 if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
                     # Update the Result
                     $result = $false

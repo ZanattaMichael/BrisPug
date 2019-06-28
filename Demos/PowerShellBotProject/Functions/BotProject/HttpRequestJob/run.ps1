@@ -331,7 +331,6 @@ function Test-ObjectProperty() {
             # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
             elseif (($object -is [System.Collections.Hashtable]) -or ($object.GetType() -like "*Dictonary*")) {
                 # Process as a Dictionary Element
-                "TEST" | out-file -LiteralPath "C:\Temp\success.txt"
                 if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
                     # Update the Result
                     $result = $false
@@ -420,7 +419,7 @@ try {
 # Check for an Empty String (Nulls are not allowed)
 $responsebody = @{ 
     jobs = $RequestedJobs.Where{$_.inputclixml -ne [String]::Empty()}
-} | ConvertTo-Json
+}
 
 # Invalidate Jobs that haven't been submitted correctly. If they are bad
 # send an "error" status back the SQL Server
