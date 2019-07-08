@@ -1,36 +1,32 @@
 using namespace System.Net
-using namespace System.Data.SqlClient
+
+<#
+Script will send results back once job is completed.
+
+Inputs to include in body:
+
+    {
+        "GUID" : "Value"
+        "ResponseBody" : "Value as B64"
+        "StatusCode" : "Response"
+    }
+
+Output:
+
+# Successful
+{
+    "success" : true
+}
+# Failure
+{
+    "success" : false
+}
+
+#>
 
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
-Write-Verbose $Request
-
-# https://devblogs.microsoft.com/scripting/hey-scripting-guy-how-do-i-add-help-information-for-windows-powershell-parameters/
-
-<# POST method: $req
-Authors: Michael Zanatta, Christian Coventry
-------------------------------------------------------------------------------------
-Statuses that will be used during execution:
-    Queued - Script has been sent to endpoint. Awaiting execution.
-    In Progress - Script has been executed. Awaiting results.
-    Completed - Script has finished executing and results have been received. 
-    Failed - Script has finished executing or thrown an error. No results received. 
-
-REQUEST:
-{
-    "ComputerName":  "Test01",
-    "Code":  "Base 64 encoded CliXML"
-}
-
-RESPONSE:
-{
-    "Success" {
-        "GUID":  "45f13471-9eea-4463-8b5d-96aa90e02de6",
-        "Status":  "queued"
-    }
-}
-#>
 
 # ==========================================================================================
 #                                          Functions
@@ -405,16 +401,9 @@ function ConvertTo-Base64 {
 
 }
 
-
 # ========================================================================================
 #                                          Main
 # ========================================================================================
-
-# Create GUID
-$GUID = [GUID]::NewGuid().GUID
-
-# Pull the SQL Password
-$SQLPassword = (Get-AzKeyVaultSecret -VaultName BrisPug -Name brispugbotdemo).SecretValue
 
 # Get the Body of the HTML Request
 $requestBody = $Request.Body
@@ -422,57 +411,79 @@ $requestBody = $Request.Body
 # Declare the Response Body
 $responsebody = $null
 
-# Validate the Input
-if ((-not (Test-ObjectProperty -object $requestBody -property ComputerName, Code)) -or ($requestBody.Count -ne 2)){
+#
+# Checks / Looking for Input is Correct
+#
+
+if (-not (Test-ObjectProperty -object $requestBody -property GUID, ResponseBody, StatusCode)){
     # Log 
     Write-Error "Missing ComputerName, Code Property or Invalid Property"
 
     # This if statement will execute if Test-ObjectProperty evaluates to be false
-    $status = [HttpStatusCode]::BadRequest
-    $responsebody = @{error = "Missing ComputerName, Code Property or Invalid Property."}
+    # Send a HTTP Response
+    Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
+        StatusCode = [HttpStatusCode]::BadRequest
+        Body =  @{success = $false} 
+    })
 
-} else {
-
-
-    $SQLParams = @{
-        CommandText = ("INSERT INTO [dbo].[remote_code_execution] (InputCLIXML, ComputerNameTarget, GUID, Status) VALUES ('{0}', '{1}', '{2}', '{3}')" -f `
-                        $requestBody.Code, $requestBody.ComputerName, $GUID, "Queued")
-        ServerName = "tcp:brispug.database.windows.net"
-        ServerPort = "1433"
-        DatabaseName = "RemoteBotDatabase"
-        Credential = [pscredential]::New('brispugbotdemo', $SQLPassword)
-        Encrypt = $true
-    }
-
-    # 
-    # Invoke SQL Query to Add to the Database
-
-    try {
-
-        Invoke-SQLQuery @SQLParams
-
-        #
-        # Return object. Contains information that will returned to the sender. 
-        $status = [HttpStatusCode]::OK
-        $responsebody = @{
-            success = @{
-                GUID = $GUID
-                Status = "queued"
-            }
-        }
-        
-    } catch {
-        # Let's log the Error
-        Write-Error $_
-        # This if statement will execute if Test-ObjectProperty evaluates to be false
-        $status = [HttpStatusCode]::BadRequest
-        $responsebody = @{error = "There was a problem submitting the request"}    
-    }   
+    # Return to the Parent
+    return;
 
 }
+
+#
+# Write Back into SQL the Results
+# 
+
+# Pull the SQL Password from Azure KeyVault
+$SQLPassword = (Get-AzKeyVaultSecret -VaultName BrisPug -Name brispugbotdemo).SecretValue
+
+#
+# Invoke-SQLQuery
+
+# Define the SQL Parameters
+$SQLParams = @{
+    CommandText = ("UPDATE [dbo].[remote_code_execution] SET Status = '{0}', SET OutputCLIXML = '{1}' WHERE GUID = '{2}'" -f `
+                    $requestBody.StatusCode,
+                    $requestBody.ResponseBody,
+                    $requestBody.GUID)
+    ServerName = "tcp:brispug.database.windows.net"
+    ServerPort = "1433"
+    DatabaseName = "RemoteBotDatabase"
+    Credential = [pscredential]::New('brispugbotdemo', $SQLPassword)
+    Encrypt = $true
+}
+
+# 
+# Invoke SQL Query to Add to the Database
+
+try {
+    
+    # Invoke the SQL Query
+    Invoke-SQLQuery @SQLParams
+
+    #
+    # Return object. Contains information that will returned to the sender. 
+    $status = [HttpStatusCode]::OK
+    $responsebody = @{
+       success = $true
+    }
+    
+} catch {
+    
+    # Let's log the Error
+    Write-Error $_
+    # This if statement will execute if Test-ObjectProperty evaluates to be false
+    $status = [HttpStatusCode]::BadRequest
+    $responsebody = @{success = $false}    
+}   
+
+#
+# Push back to the REST Caller
+#
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = $status
-    Body = $responsebody
+    Body = $body
 })
