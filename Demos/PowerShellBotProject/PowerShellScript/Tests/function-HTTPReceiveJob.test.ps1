@@ -1,4 +1,4 @@
-Describe "Start-PSRemoteJob.ps1 Tests" {
+Describe "HTTPReceiveJob.ps1 Tests" {
 
 
         BeforeAll {
@@ -7,7 +7,7 @@ Describe "Start-PSRemoteJob.ps1 Tests" {
             Get-ChildItem -LiteralPath "D:\Git\BrisPug\Demos\PowerShellBotProject\PowerShellScript\Tests\Supporting-Functions" -File | ForEach-Object{. $_.FullName}
 
             # Define the URL Endpoint
-            $URLEndpoint = "http://localhost:7071/api/HttpStartJob"            
+            $URLEndpoint = "http://localhost:7071/api/HttpRecieveJob"            
         }
 
         <# 
