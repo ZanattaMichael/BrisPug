@@ -6,18 +6,16 @@ Function Invoke-TrapWebErrors([scriptblock]$sb) {
     # an arbitrary ScriptBlock and trap WebExceptions and return the response object
     $result = try {
       & $sb
-    } catch [System.Net.WebException] {
-      # Windows PowerShell raises a System.Net.WebException error
-       Write-Output $_.ErrorDetails.Message 
     } catch {
-      # PowerShell Core raises a stadard PowerShell error class with the exception within.
-      if ($_.Exception.GetType().ToString() -eq 'Microsoft.PowerShell.Commands.HttpResponseException') {
-        write-output $_.Exception.Response
-      } else {
-        Throw $_
+
+      # If a HTTP Response Message was sent back
+      if ($_.ErrorDetails.Message) {
+          return $_.ErrorDetails.Message
       }
+
+      # Throw a Terminating Error
+      throw $_
+
     }
   
-    write-output $result
-    
   }

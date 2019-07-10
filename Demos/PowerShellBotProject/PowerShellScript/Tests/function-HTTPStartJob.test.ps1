@@ -29,7 +29,7 @@ Describe "HTTPStartJob.ps1 Tests" {
             BeforeAll {
                 # Define the Body of the Request
                 $Body = @{
-                    ComputerName = "TEST01"
+                    ComputerName = "PESTERTEST"
                     Code = ({Write-Host "TEST"}).ToString() | ConvertTo-Base64
                 } | ConvertTo-Json
 
@@ -87,7 +87,7 @@ Describe "HTTPStartJob.ps1 Tests" {
             it "Testing Missing Code Property - Looking for Error Property" {                
                 # Set the Body (Missing the Code Property)
                 $Body = @{
-                    ComputerName = "TEST01"
+                    ComputerName = "PESTERTEST"
                 } | ConvertTo-Json
                 # Invoke the Request Query
                 $result = Invoke-TrapWebErrors { Invoke-RestMethod -Uri $URLEndpoint -Method POST -ContentType "application/json" -Body $Body }
@@ -114,7 +114,7 @@ Describe "HTTPStartJob.ps1 Tests" {
                 # Set the Body (Missing the Code Property)
                 $Body = @{
                     InvalidProperty = "Testing"
-                    ComputerName = "TEST01"
+                    ComputerName = "PESTERTEST"
                     Code = ({Write-Host "TEST"}).ToString() | ConvertTo-Base64
                 } | ConvertTo-Json
                 # Invoke the Request Query
