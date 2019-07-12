@@ -47,10 +47,10 @@ namespace PSWorkerService.Classes.API
                      
         }
 
-        public static List<HTTPRequestJob> requestNewJobs()
+        public static HTTPRequestJob requestNewJobs()
         {
             // Define the Response Body
-            List<HTTPRequestJob> httpRequestJobs = null;
+            HTTPRequestJob httpRequestJobs = null;
 
             //
             // The URI requires a query string to be appended to it.
@@ -66,7 +66,7 @@ namespace PSWorkerService.Classes.API
 
             try
             {
-                httpRequestJobs = JsonConvert.DeserializeObject<List<HTTPRequestJob>>(response);
+                httpRequestJobs = JsonConvert.DeserializeObject<HTTPRequestJob>(response);
             } catch (Exception e)
             {
                 //TODO: EVENT HANDLE THIS

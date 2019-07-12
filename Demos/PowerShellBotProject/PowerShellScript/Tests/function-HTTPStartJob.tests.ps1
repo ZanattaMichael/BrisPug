@@ -10,6 +10,12 @@ Describe "HTTPStartJob.ps1 Tests" {
             $URLEndpoint = "http://localhost:7071/api/HttpStartJob"            
         }
 
+
+        AfterAll {
+            # Cleanup the SQL Tables
+            Invoke-SQLCleanup
+        }
+
         <# 
         RESPONSE:
         {

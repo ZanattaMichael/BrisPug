@@ -298,6 +298,7 @@ function Invoke-SQLQuery() {
 }
 #endregion Invoke-SQLQuery
 
+
 #region Test-ObjectProperty
 # Function to test if a Property exists in an Object
 # Author: Michael Zanatta
@@ -329,12 +330,19 @@ function Test-ObjectProperty() {
                 $result = $false
             }
             # Validate the Object Type. If the object is a hashtable it will need to be handled differently.
-            elseif (($object -is [System.Collections.Hashtable]) -or ($object.GetType() -like "*Dictonary*")) {
-                # Process as a Dictionary Element
+            elseif ($object -is [System.Collections.Hashtable]) {
+                # Process as a PS HashTable Element
                 if (-not($object.GetEnumerator().Name | Where-Object {$_ -eq $prop})) {
                     # Update the Result
                     $result = $false
                 }
+            }
+            elseif ($object.GetType().Name -like "*Dictionary*") {
+                # Process as a Dictonary Element
+                if (-not($object.Keys.Where{$_ -eq $prop})) {
+                    # Update the Result
+                    $result = $false
+                }                              
             } else {
                 # Process as an PSObject
                 if (-not($object | Get-Member -Name $prop -MemberType Properties, ParameterizedProperty)) {
@@ -355,7 +363,9 @@ function Test-ObjectProperty() {
 #                                      Initialize Code
 #=============================================================================================
 
-# TO DO: Test-ObjectProperty needs to be fixed. Query String is served as dictonary
+#Wait-Debugger
+
+# Test if the Property Exists
 if (-not (Test-ObjectProperty -Object $Request.Query -Property ComputerName)) {
     # Let's log the Error
     Write-Error "The ComputerName key does not exist. Please try again."
@@ -397,6 +407,8 @@ $SQLParams = @{
 # 
 # Invoke SQL Query to Get the Jobs
 
+#Wait-Debugger
+
 try {
     # Invoke the SQL Query
     $RequestedJobs = Invoke-SQLQuery @SQLParams
@@ -418,12 +430,12 @@ try {
 
 # Check for an Empty String (Nulls are not allowed)
 $responsebody = @{ 
-    jobs = $RequestedJobs.Where{$_.inputclixml -ne [String]::Empty()}
+    jobs = $RequestedJobs | Where-Object {$_.InputCliXML -ne [String]::Empty} | Select-Object -Property GUID, InputCliXML
 }
 
 # Invalidate Jobs that haven't been submitted correctly. If they are bad
 # send an "error" status back the SQL Server
-$RequestedJobs.Where{$_.inputclixml -eq [String]::Empty()} | ForEach-Object {
+$RequestedJobs | Where-Object {$_.InputCliXML -eq [String]::Empty} | ForEach-Object {
 
     # SQL Parameters
     $SQLErrorParams = @{

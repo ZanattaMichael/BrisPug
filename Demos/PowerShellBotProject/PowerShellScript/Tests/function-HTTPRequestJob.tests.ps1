@@ -12,9 +12,8 @@ Describe "HTTPRequestJob.ps1 Tests" {
         }
 
         AfterAll {
-            # TODO: CLEANUP
-            #Invoke-SQLCleanup will deal with all the rows added to the table.
-
+            # Cleanup the SQL Tables
+            Invoke-SQLCleanup
         }
 
         #
@@ -30,9 +29,11 @@ Describe "HTTPRequestJob.ps1 Tests" {
 
                 # Assuming that the Previous Test was Successfull we are going to Start a job to the server:
 
-                # Define the Body of the Request
+                # Define the "Test ComputerName"
+                $ComputerName = "PESTERTEST"
+                # Define the Body of the Request\                
                 $StartJobBody = @{
-                    ComputerName = "PESTERTEST"
+                    ComputerName = $ComputerName
                     Code = ({Write-Output "PESTERTEST"}).ToString() | ConvertTo-Base64
                 } | ConvertTo-Json
 
@@ -49,7 +50,7 @@ Describe "HTTPRequestJob.ps1 Tests" {
                 #>
 
                 $params = @{
-                    Uri = "{0}?ComputerName={1}" -f $URLEndpoint, $StartJobBody.ComputerName    
+                    Uri = "{0}?ComputerName={1}" -f $URLEndpoint, $ComputerName  
                     ContentType  = "application/json"                
                 }
 
@@ -58,8 +59,8 @@ Describe "HTTPRequestJob.ps1 Tests" {
             }
 
             AfterAll {
-                # TODO: CLEANUP
-                #Invoke-SQLCleanup will deal with all the rows added to the table.
+                # Cleanup the SQL Tables
+                Invoke-SQLCleanup
             }
 
 
@@ -74,7 +75,7 @@ Describe "HTTPRequestJob.ps1 Tests" {
 
             # Test the Response. Looking for Success.
             it "Testing the Response - Job Property" {
-                $restResponse.Job | Should not be $null
+                $restResponse.Jobs | Should not be $null
             }
 
             # Test the Response. Looking for Error
@@ -84,18 +85,22 @@ Describe "HTTPRequestJob.ps1 Tests" {
             
             # Test the Response to Make Sure it's a Single Job
             it "Testing Single Job" {
-                $restResponse.Job.Count | Should be 1
+                $restResponse.Jobs.Count | Should be 1
             }
             
-            # Deseralize and Execute the PowerShell
-            it "Testing Job Deserialization and Execution" {
+            # Decode and Execute the PowerShell
+            it "Testing Job Decoding and Execution" {
+
+                # Decode the Base64
+                $paintext = $restResponse.Jobs.InputCliXML | ConvertFrom-Base64
+
                 # Dot Source the Code
-                (. { $restResponse.Job | ConvertFrom-Base64 }) | Should be "PESTERTEST"
+                ([System.Management.Automation.ScriptBlock]::Create($paintext).Invoke()) | Should be "PESTERTEST"
             }
 
         }
 
-       #
+        #
         # Now we are going to pretend to be the server. Fetch Request all the jobs from the server.
 
         Context "[Multi-Job] Testing Standard Request (url?query) - Should not be null" {
@@ -112,9 +117,11 @@ Describe "HTTPRequestJob.ps1 Tests" {
 
                 # Assuming that the Previous Test was Successfull we are going to Start a job to the server:
 
-                # Define the Body of the Request
+                # Define the "Test ComputerName"
+                $ComputerName = "PESTERTEST"
+                # Define the Body of the Request\                
                 $StartJobBody = @{
-                    ComputerName = "PESTERTEST"
+                    ComputerName = $ComputerName
                     Code = ({Write-Output "PESTERTEST"}).ToString() | ConvertTo-Base64
                 } | ConvertTo-Json
 
@@ -132,7 +139,7 @@ Describe "HTTPRequestJob.ps1 Tests" {
                 #>
 
                 $params = @{
-                    Uri = "{0}?ComputerName={1}" -f $URLEndpoint, $StartJobBody.ComputerName    
+                    Uri = "{0}?ComputerName={1}" -f $URLEndpoint, $ComputerName  
                     ContentType  = "application/json"                
                 }
 
@@ -141,10 +148,9 @@ Describe "HTTPRequestJob.ps1 Tests" {
             }
 
             AfterAll {
-                # TODO: CLEANUP
-                #Invoke-SQLCleanup will deal with all the rows added to the table.
+                # Cleanup the SQL Tables
+                Invoke-SQLCleanup
             }
-
             #
             # Tests
             #
@@ -156,7 +162,7 @@ Describe "HTTPRequestJob.ps1 Tests" {
 
             # Test the Response. Looking for Success.
             it "Testing the Response - Job Property" {
-                $restResponse.Job | Should not be $null
+                $restResponse.Jobs | Should not be $null
             }
 
             # Test the Response. Looking for Error
@@ -166,7 +172,7 @@ Describe "HTTPRequestJob.ps1 Tests" {
             
             # Test the Response to Make Sure it's a Multiple Job
             it "Testing Single Job" {
-                $restResponse.Job.Count | Should be 4
+                $restResponse.Jobs.Count | Should be 4
             }
             
             # Deseralize Each of the 4 Jobs and Execute Them
@@ -174,50 +180,57 @@ Describe "HTTPRequestJob.ps1 Tests" {
                 
                 # Deseralize and Execute the PowerShell
                 it "[JOB $($_)] Testing Job Deserialization and Execution" {
+
+                    # Decode the Base64
+                    $paintext = $restResponse.Jobs[$_].InputCliXML | ConvertFrom-Base64
+
                     # Dot Source the Code
-                    (. { $restResponse.Job[$_] | ConvertFrom-Base64 }) | Should be "PESTERTEST"
+                    ([System.Management.Automation.ScriptBlock]::Create($paintext).Invoke()) | Should be "PESTERTEST"
+
                 }
 
             }
-
-
 
         }
 
         #
         # Testing for Error Handling
         #
-
+        
         Context "Testing Standard Request - Sending Invalid Data" {
 
-            # Body of the Request
+            AfterAll {
+                # Cleanup the SQL Tables
+                Invoke-SQLCleanup
+            }
 
             # Test the Response. Looking for Nulls
             it "Testing Missing Code Property - Looking for Error Property" {                
-                # Set the Body (Missing the Jobs Property)
-                $Body = @{
-                   
-                } | ConvertTo-Json
+
+                # Define the Parameters
+                $Uri = "{0}?=INVALIDKEY{1}" -f $URLEndpoint, $ComputerName  
+
                 # Invoke the Request Query
-                $result = Invoke-TrapWebErrors { Invoke-RestMethod -Uri $URLEndpoint -Method POST -ContentType "application/json" -Body $Body }
+                $result = Invoke-TrapWebErrors { Invoke-RestMethod -Uri $Uri -ContentType "application/json" }
                 
                 $obj = $result | ConvertFrom-Json
                 $obj.Error | Should not be $null
+
             }
             
-            # Test the Response. Looking for Nulls
-            it "Testing Invalid Property (InvalidProperty) - Looking for Error Property" {                
-                # Set the Body (Missing the Code Property)
-                $Body = @{
-                    InvalidProperty = "Testing"
-                    Jobs = $RequestedJobs
-                } | ConvertTo-Json
+            # Test the Response. With an Empty String
+            it "Testing Missing ComputerName Value - Looking for Error Property" {                
+
+                # Define the Parameters
+                $Uri = "{0}?COMPUTERNAME=" -f $URLEndpoint  
+
                 # Invoke the Request Query
-                $result = Invoke-TrapWebErrors { Invoke-RestMethod -Uri $URLEndpoint -Method POST -ContentType "application/json" -Body $Body }
+                $result = Invoke-TrapWebErrors { Invoke-RestMethod -Uri $Uri -ContentType "application/json" }
                 
                 $obj = $result | ConvertFrom-Json
                 $obj.Error | Should not be $null
-            }            
+
+            }          
 
         }
 
