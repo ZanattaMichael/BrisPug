@@ -422,10 +422,10 @@ $responsebody = $null
 #
 # Checks / Looking for Input is Correct
 #
-
-if (-not (Test-ObjectProperty -object $requestBody -property GUID, ResponseBody, StatusCode)){
+#Wait-Debugger
+if ((-not (Test-ObjectProperty -object $requestBody -property GUID, ResponseBody, StatusCode)) -or ($requestBody.Count -ne 3)){
     # Log 
-    Write-Error "Missing ComputerName, Code Property or Invalid Property"
+    Write-Error "Missing GUID, ResponseBody, StatusCode Property or Invalid Property"
 
     # This if statement will execute if Test-ObjectProperty evaluates to be false
     # Send a HTTP Response
@@ -451,7 +451,7 @@ $SQLPassword = (Get-AzKeyVaultSecret -VaultName BrisPug -Name brispugbotdemo).Se
 
 # Define the SQL Parameters
 $SQLParams = @{
-    CommandText = ("UPDATE [dbo].[remote_code_execution] SET Status = '{0}', SET OutputCLIXML = '{1}' WHERE GUID = '{2}'" -f `
+    CommandText = ("UPDATE [dbo].[remote_code_execution] SET Status = '{0}', OutputCLIXML = '{1}' WHERE GUID = '{2}'" -f `
                     $requestBody.StatusCode,
                     $requestBody.ResponseBody,
                     $requestBody.GUID)
@@ -493,5 +493,5 @@ try {
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = $status
-    Body = $body
+    Body = $responsebody
 })

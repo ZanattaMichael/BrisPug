@@ -87,15 +87,20 @@ Describe "HTTPRequestJob.ps1 Tests" {
             it "Testing Single Job" {
                 $restResponse.Jobs.Count | Should be 1
             }
+
+            # Test the Response. Looking for Guid Property
+            it "Testing the Response - Jobs.Guid Property" {
+                $restResponse.Jobs.GUID | Should not be $null
+            }            
             
             # Decode and Execute the PowerShell
             it "Testing Job Decoding and Execution" {
 
                 # Decode the Base64
-                $paintext = $restResponse.Jobs.InputCliXML | ConvertFrom-Base64
+                $plaintext = $restResponse.Jobs.InputCliXML | ConvertFrom-Base64
 
                 # Dot Source the Code
-                ([System.Management.Automation.ScriptBlock]::Create($paintext).Invoke()) | Should be "PESTERTEST"
+                ([System.Management.Automation.ScriptBlock]::Create($plaintext).Invoke()) | Should be "PESTERTEST"
             }
 
         }
@@ -175,6 +180,11 @@ Describe "HTTPRequestJob.ps1 Tests" {
                 $restResponse.Jobs.Count | Should be 4
             }
             
+            # Test the Response. Looking for Guid Property
+            it "Testing the Response - Jobs.Guid Property" {
+                $restResponse.Jobs.GUID.Count | Should be 4
+            }   
+
             # Deseralize Each of the 4 Jobs and Execute Them
             0..3 | ForEach-Object {
                 
@@ -182,10 +192,10 @@ Describe "HTTPRequestJob.ps1 Tests" {
                 it "[JOB $($_)] Testing Job Deserialization and Execution" {
 
                     # Decode the Base64
-                    $paintext = $restResponse.Jobs[$_].InputCliXML | ConvertFrom-Base64
+                    $plaintext = $restResponse.Jobs[$_].InputCliXML | ConvertFrom-Base64
 
                     # Dot Source the Code
-                    ([System.Management.Automation.ScriptBlock]::Create($paintext).Invoke()) | Should be "PESTERTEST"
+                    ([System.Management.Automation.ScriptBlock]::Create($plaintext).Invoke()) | Should be "PESTERTEST"
 
                 }
 
