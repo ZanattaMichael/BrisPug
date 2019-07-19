@@ -1,0 +1,13 @@
+﻿Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
+Committing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
+Remove InstallState file because there are no installers.

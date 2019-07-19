@@ -23,27 +23,46 @@ namespace PSWorkerService.Classes
 
         }
 
-        public GetJobs()  {
+        public static void Process()  {
 
+            // Create a Job
+            Job j = new Job();
 
             //
             // Request some Jobs from the API
-            httpRequestJobs = RESTHandler.requestNewJobs();
+            j.httpRequestJobs = RESTHandler.requestNewJobs();
 
             // Iterate Through Each of the Jobs and Execute the PowerShell Async
-            foreach (HTTPRequestJobDetail job in httpRequestJobs.jobs) {
-                
-                // DeEncode the Base64 InputCliXML
-                string decoded = Classes.Supporting.ConvertFromBase64.Invoke(job.CLIXML);
+            foreach (HTTPRequestJobDetail job in j.httpRequestJobs.jobs) {
 
-            
-            }
+                // Create a Response Object
+                HTTPSendJob httpSendJob = new HTTPSendJob(job.GUID);
 
+                // Execute the Job
+                try
+                {                
+                    // Decode the Base64 InputCliXML
+                    string decoded = Supporting.ConvertFromBase64.Invoke(job.CLIXML);
+                    // Execute the PowerShell Job
+                    httpSendJob.ResponseBody = j.ExecuteJob(decoded);
+                    httpSendJob.StatusCode = "Completed";
+                   
+                } catch
+                {
+                    // Capture an Error
+                    httpSendJob.StatusCode = "Error";
+
+                } finally
+                {
+                    RESTHandler.sendResponseJob(httpSendJob);
+                }
+
+            }   
 
         }
 
 
-        public ExecuteJob(string scriptBlock, List<PowerShellParameter> powerShellParameters = null) {
+        private string ExecuteJob(string scriptBlock) {
 
             using (System.Management.Automation.PowerShell PowerShellInstance = System.Management.Automation.PowerShell.Create())
             {
@@ -51,29 +70,22 @@ namespace PSWorkerService.Classes
                 // Parameter String Array
                 List<string> ParamArray = new List<string>();
 
-                // Build the Parameters
-                if (powerShellParameters != null)
-                {
-                    foreach (PowerShellParameter parameter in powerShellParameters)
-                    {
-                        ParamArray.Add($"-{parameter.ParameterName} {parameter.ParameterValue}");
-                    }
-                }
-
                 // Join the Array
                 string param = string.Join(" ",ParamArray.ToArray());
 
                 // Build the Wrapper
-                string wrapper = $"Function Invoke-Wrapper{{{scriptBlock}}}; Invoke-Wrapper {param} | Out-String | ConvertTo-Json -Compress -Depth 1 ";
+                string wrapper = $"Function Invoke-Wrapper{{{scriptBlock}}}; Invoke-Wrapper | ConvertTo-Json -Compress -Depth 1 ";
                                 
                 // Add the Script to the Instance
                 PowerShellInstance.AddScript(wrapper);
 
                 // Invoke the Execution
-                this.PSOutput = PowerShellInstance.Invoke();
+                var result = PowerShellInstance.Invoke();
+
+                // Seralize the Output
+                return Supporting.ConvertFromBase64.Invoke(result.ToString());
 
             }
-
 
         }
 

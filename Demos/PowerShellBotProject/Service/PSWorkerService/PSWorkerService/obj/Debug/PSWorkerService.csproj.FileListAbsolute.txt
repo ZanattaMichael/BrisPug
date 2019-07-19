@@ -1,0 +1,11 @@
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe.config
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.pdb
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\Newtonsoft.Json.dll
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\System.Management.Automation.dll
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\Newtonsoft.Json.xml
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\obj\Debug\PSWorkerService.csprojAssemblyReference.cache
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\obj\Debug\PSWorkerService.csproj.CoreCompileInputs.cache
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\obj\Debug\PSWorkerService.csproj.CopyComplete
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\obj\Debug\PSWorkerService.exe
+D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\obj\Debug\PSWorkerService.pdb

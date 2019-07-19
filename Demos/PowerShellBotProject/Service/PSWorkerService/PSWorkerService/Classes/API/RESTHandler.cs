@@ -78,19 +78,16 @@ namespace PSWorkerService.Classes.API
 
         }
 
-        public static Task<String> sendNewJobs()
+        public static void sendResponseJob(HTTPSendJob h)
         {
             //
             // The URI requires a query string to be appended to it.
 
             // Create a URI
-            Uri uri = new Uri($"{Service1.URLRequestJob}?ComputerName={System.Environment.MachineName}");
-
-            // Call the Rest Handler capture the response
-            
-            
-
-
+            Uri uri = new Uri($"{Service1.URLSendJob}");
+          
+            // Call the Rest Handler. Serialize the Response back
+            string response = RESTHandler.invoke(uri, HttpMethod.Get, JsonConvert.SerializeObject(h)).Result;
         }
 
 

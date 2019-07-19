@@ -45,7 +45,7 @@ namespace PSWorkerService
 
         private static void TimedEvent(object source, ElapsedEventArgs e)
         {
-
+            Classes.Job.Process();
         }
     }
 }

@@ -9,11 +9,11 @@ namespace PSWorkerService.Classes.JSONSchemas
     class HTTPRequestJob
     {
 
-        public <List<HTTPRequestJobDetails>> jobs { get; set; }
+        public List<HTTPRequestJobDetail> jobs { get; set; }
         public string error { get; set; }
     }
 
-    class HTTPRequestJobDetails {
+    class HTTPRequestJobDetail {
 
         public string GUID { get; set; }
         public string CLIXML { get; set; } 
