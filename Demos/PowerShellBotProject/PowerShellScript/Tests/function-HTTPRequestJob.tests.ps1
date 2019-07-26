@@ -27,6 +27,9 @@ Describe "HTTPRequestJob.ps1 Tests" {
 
             BeforeAll {
 
+                # Cleanup the SQL Tables
+                Invoke-SQLCleanup
+
                 # Assuming that the Previous Test was Successfull we are going to Start a job to the server:
 
                 # Define the "Test ComputerName"
