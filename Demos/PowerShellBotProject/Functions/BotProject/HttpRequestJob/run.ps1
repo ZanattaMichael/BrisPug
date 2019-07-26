@@ -428,10 +428,13 @@ try {
 #
 # Validate the Response
 
-# Check for an Empty String (Nulls are not allowed)
-$responsebody = @{ 
-    jobs = $RequestedJobs | Where-Object {$_.InputCliXML -ne [String]::Empty} | Select-Object -Property GUID, InputCliXML
+# Define the Job Collection
+$responsebody = @{
+    jobs = @()
 }
+
+# Check for an Empty String (Nulls are not allowed)
+$responsebody.jobs += $RequestedJobs | Where-Object {$_.InputCliXML -ne [String]::Empty} | Select-Object -Property GUID, InputCliXML
 
 # Invalidate Jobs that haven't been submitted correctly. If they are bad
 # send an "error" status back the SQL Server
