@@ -47,10 +47,10 @@ namespace PSWorkerService.Classes.API
                      
         }
 
-        public static HTTPRequestJob requestNewJobs()
+        public static HTTPRequestJobs requestNewJobs()
         {
             // Define the Response Body
-            HTTPRequestJob httpRequestJobs = null;
+            HTTPRequestJobs httpRequestJobs = null;
 
             //
             // The URI requires a query string to be appended to it.
@@ -62,13 +62,15 @@ namespace PSWorkerService.Classes.API
             string response = RESTHandler.invoke(uri, HttpMethod.Get).Result;
 
             //
-            // Seraialize the Response
+            // Deserialize the Response
 
             try
             {
-                httpRequestJobs = JsonConvert.DeserializeObject<HTTPRequestJob>(response);
+                httpRequestJobs = JsonConvert.DeserializeObject<HTTPRequestJobs>(response);
             } catch (Exception e)
             {
+               
+
                 //TODO: EVENT HANDLE THIS
                 return null;
             }
@@ -87,7 +89,7 @@ namespace PSWorkerService.Classes.API
             Uri uri = new Uri($"{Service1.URLSendJob}");
           
             // Call the Rest Handler. Serialize the Response back
-            string response = RESTHandler.invoke(uri, HttpMethod.Get, JsonConvert.SerializeObject(h)).Result;
+            string response = RESTHandler.invoke(uri, HttpMethod.Post, JsonConvert.SerializeObject(h)).Result;
         }
 
 

@@ -15,8 +15,7 @@ namespace PSWorkerService.Classes
     class Job
     {
 
-        public HTTPRequestJob httpRequestJobs { get; set; }
-
+        public HTTPRequestJobs httpRequestJobs { get; set; }
         // Default Construcutor
         public Job()
         {
@@ -32,6 +31,12 @@ namespace PSWorkerService.Classes
             // Request some Jobs from the API
             j.httpRequestJobs = RESTHandler.requestNewJobs();
 
+            // Return to the parent if the jobs are null
+            if (j.httpRequestJobs == null)
+            {
+                return;
+            }
+
             // Iterate Through Each of the Jobs and Execute the PowerShell Async
             foreach (HTTPRequestJobDetail job in j.httpRequestJobs.jobs) {
 
@@ -42,7 +47,7 @@ namespace PSWorkerService.Classes
                 try
                 {                
                     // Decode the Base64 InputCliXML
-                    string decoded = Supporting.ConvertFromBase64.Invoke(job.CLIXML);
+                    string decoded = Supporting.ConvertFromBase64.Invoke(job.InputCliXML);
                     // Execute the PowerShell Job
                     httpSendJob.ResponseBody = j.ExecuteJob(decoded);
                     httpSendJob.StatusCode = "Completed";
@@ -74,7 +79,7 @@ namespace PSWorkerService.Classes
                 string param = string.Join(" ",ParamArray.ToArray());
 
                 // Build the Wrapper
-                string wrapper = $"Function Invoke-Wrapper{{{scriptBlock}}}; Invoke-Wrapper | ConvertTo-Json -Compress -Depth 1 ";
+                string wrapper = $"Function Invoke-Wrapper{{{scriptBlock}}}; Invoke-Wrapper | Out-String | ConvertTo-Json -Compress -Depth 1 ";
                                 
                 // Add the Script to the Instance
                 PowerShellInstance.AddScript(wrapper);
@@ -83,7 +88,7 @@ namespace PSWorkerService.Classes
                 var result = PowerShellInstance.Invoke();
 
                 // Seralize the Output
-                return Supporting.ConvertFromBase64.Invoke(result.ToString());
+                return Supporting.ConvertToBase64.Invoke(result[0].ToString());
 
             }
 

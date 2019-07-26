@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PSWorkerService.Classes.JSONSchemas
 {
-    class HTTPRequestJob
+    class HTTPRequestJobs
     {
 
         public List<HTTPRequestJobDetail> jobs { get; set; }
@@ -16,7 +16,7 @@ namespace PSWorkerService.Classes.JSONSchemas
     class HTTPRequestJobDetail {
 
         public string GUID { get; set; }
-        public string CLIXML { get; set; } 
+        public string InputCliXML { get; set; } 
 
     }
 

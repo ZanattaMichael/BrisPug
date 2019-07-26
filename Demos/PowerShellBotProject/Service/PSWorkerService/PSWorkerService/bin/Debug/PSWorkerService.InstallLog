@@ -11,3 +11,104 @@ Affected parameters are:
    assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
 No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
 Remove InstallState file because there are no installers.
+Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
+Committing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
+Remove InstallState file because there are no installers.
+Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
+Committing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
+Remove InstallState file because there are no installers.
+Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
+Committing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe assembly.
+Remove InstallState file because there are no installers.
+Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Installing service Service1...
+Creating EventLog source Service1 in log Application...
+Rolling back assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Restoring event log to previous state for source Service1.
+Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Installing service Service1...
+Service Service1 has been successfully installed.
+Creating EventLog source Service1 in log Application...
+Committing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Rolling back assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Installing service Service1...
+Creating EventLog source Service1 in log Application...
+Rolling back assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Restoring event log to previous state for source Service1.
+Installing assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Installing service Service1...
+Creating EventLog source Service1 in log Application...
+Rolling back assembly 'D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.InstallLog
+   assemblypath = D:\Git\BrisPug\Demos\PowerShellBotProject\Service\PSWorkerService\PSWorkerService\bin\Debug\PSWorkerService.exe
+Restoring event log to previous state for source Service1.

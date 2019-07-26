@@ -60,6 +60,12 @@
     <Compile Include="Classes\Job.cs" />
     <Compile Include="Classes\JSONSchemas\HTTPRequestJob.cs" />
     <Compile Include="Classes\JSONSchemas\HTTPSendJob.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service1.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -75,6 +81,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Classes\Worker\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
