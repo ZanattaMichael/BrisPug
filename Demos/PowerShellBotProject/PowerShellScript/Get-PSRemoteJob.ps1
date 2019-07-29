@@ -334,30 +334,21 @@ function Get-PSRemoteJob {
         # Format the Response
 
         # Test for the $result.success.status property. If the property dosen't exist, then write "No Response"
-        if (-not(Test-ObjectProperty -object $result.Success -property Status)) {
+        if (-not(Test-ObjectProperty -object $result -property Output)) {
 
             # Write output
             Write-Output ([PSCustomObject]@{Response = "No Response"})
 
-        } elseif ($result.Success.Status -eq "Completed") {
-            [PSCustomObject]$result.Success.Output = $(
-                if ($result.Success.Output -ne $null) {
-                    # Format the output.
-                    # Output is encoded in BASE64 & Serialized as JSON
-                    Write-Output ($result.Success.Output | ConvertFrom-Base64 | ConvertFrom-Json)
-                } else {
-                    Write-Output ([PSCustomObject]@{Response = "No Response"})
-                }
-            )
-        }
+        } else {
+            
+            Write-Output ($result.Output | ConvertFrom-Base64 | ConvertFrom-Json)
 
+        }
 
     } catch {
         Write-Error $_
         
     }
-    
-    Write-Output $result
     
 }
 
