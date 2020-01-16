@@ -1,8 +1,0 @@
-{
-    "azureFunctions.templateFilter": "Core",
-    "azureFunctions.deploySubpath": "Demos\\PowerShellBotProject\\Functions\\BotProject",
-    "azureFunctions.projectLanguage": "PowerShell",
-    "azureFunctions.projectRuntime": "~2",
-    "debug.internalConsoleOptions": "neverOpen",
-    "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe"
-}

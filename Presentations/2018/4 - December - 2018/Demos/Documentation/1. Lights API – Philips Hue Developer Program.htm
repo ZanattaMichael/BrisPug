@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html slick-uniqueid="3" lang="en-US"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!-- Debug: Bootstrap Inserted by WordPress Twitter Bootstrap CSS plugin v3.3.7-1 http://icwp.io/w/ -->
+<link rel="stylesheet" type="text/css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/bootstrap.css">
+<!-- / WordPress Twitter Bootstrap CSS Plugin from iControlWP. -->
+	<script async="" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/a"></script><script src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/tms_code.js"></script><script src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/mbox-contents-2416c2d7c021da24dae06d3e9fb74ec82ccf565b.js"></script> 
+	<meta charset="utf-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<title>1. Lights API – Philips Hue Developer Program</title>
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Philips Hue Developer Program » Feed" href="https://developers.meethue.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Philips Hue Developer Program » Comments Feed" href="https://developers.meethue.com/comments/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/developers.meethue.com\/wp-includes\/js\/wp-emoji-release.min.js"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/wp-emoji-release.js" type="text/javascript" defer="defer"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="um-terms-conditions-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-terms-conditions-public.css" type="text/css" media="all">
+<link rel="stylesheet" id="hue_developer_theme-style-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/style_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="newsletter-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="enlighter-local-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/EnlighterJS.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_fonticons_ii-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-fonticons-ii.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_fonticons_fa-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-fonticons-fa.css" type="text/css" media="all">
+<link rel="stylesheet" id="select2-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/select2.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_crop-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-crop.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_modal-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-modal.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_styles-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_members-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-members.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_profile-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-profile.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_account-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-account.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_misc-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-misc.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_fileupload-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-fileupload.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_datetime-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/default.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_datetime_date-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/default_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_datetime_time-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/default_003.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_raty-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-raty.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_scrollbar-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-scrollbar.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_tipsy-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-tipsy.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_responsive-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-responsive.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_default_css-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-old-default.css" type="text/css" media="all">
+<link rel="stylesheet" id="um_old_css-css" href="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um_old_settings.css" type="text/css" media="all">
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/jquery_002.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/jquery-migrate.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/bootstrap.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-terms-conditions-public.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/my-scripts.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-gdpr.js"></script>
+		<style type="text/css">
+			.request_name {
+				display: none !important;
+			}
+		</style>
+	<script src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/satellite-5aa6404164746d531c0025a2.js"></script><script type="text/javascript" async="" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/iwnljcerg0.js"></script><script src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/satellite-5853c8b964746d2a200014d0.js"></script><script src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/satellite-595a612e64746d56ee0126ce.js"></script></head>
+
+<body class="page-template-default page page-id-462 page-child parent-pageid-156 logged-in">
+	<div id="page" class="site">
+		<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+		<header>
+			<a href="https://developers.meethue.com/"><img id="imgm" class="" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/moblogo.png"></a>
+			<div class="bannerDev">
+				<nav id="site-navigation" class="main-navigation">
+
+					<div class="myNavigation">
+
+						<div class="hueLogo"><a href="https://developers.meethue.com/"><img id="imgd" class="" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/site_logo.png"></a>
+
+						</div>
+						<br>	
+						<div class="primary-menu-div">
+
+							<div class="menu-main-menu-loggedin-container"><ul id="primary-menu" class="menu"><li id="menu-item-1137" class="leftMain menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1137"><a href="#">Explore</a>
+<ul class="sub-menu">
+	<li id="menu-item-1138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1138"><a href="https://developers.meethue.com/explore/why-develop-for-hue/">Why Develop for Hue</a></li>
+	<li id="menu-item-1139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1139"><a href="https://developers.meethue.com/explore/built-for-hue/">Built for Hue</a></li>
+</ul>
+</li>
+<li id="menu-item-1140" class="leftMain menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1140 active"><a href="#">Develop</a>
+<ul class="sub-menu">
+	<li id="menu-item-1142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1142"><a href="https://developers.meethue.com/develop/get-started-2/">Get Started</a></li>
+	<li id="menu-item-1141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1141"><a href="https://developers.meethue.com/develop/application-design-guidance/">Application Design Guidance</a></li>
+	<li id="menu-item-1143" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-1143"><a href="https://developers.meethue.com/develop/hue-api/">Hue API</a></li>
+	<li id="menu-item-1354" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1354"><a href="https://developers.meethue.com/develop/hue-entertainment/">Hue Entertainment</a></li>
+	<li id="menu-item-1144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1144"><a href="https://developers.meethue.com/develop/tools-and-sdks/">Tools and SDKs</a></li>
+</ul>
+</li>
+<li id="menu-item-1145" class="leftMain menu-item menu-item-type-post_type menu-item-object-page menu-item-1145"><a href="https://developers.meethue.com/support/">Support</a></li>
+<li id="menu-item-1452" class="leftMain menu-item menu-item-type-post_type menu-item-object-page menu-item-1452"><a href="https://developers.meethue.com/job-vacancies/">Job Vacancies</a></li>
+<li id="menu-item-1147" class="leftMain menu-item menu-item-type-custom menu-item-object-custom menu-item-1147"><a href="https://developers.meethue.com/forum">Forum</a></li>
+<li id="menu-item-1148" class="rightMain menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1148"><a href="#">Michael</a>
+<ul class="sub-menu">
+	<li id="menu-item-1181" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1181"><a href="https://developers.meethue.com/my-apps/">Remote Hue API appids</a></li>
+	<li id="menu-item-1321" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1321"><a href="https://developers.meethue.com/account/">Profile</a></li>
+	<li id="menu-item-1150" class="menu-item menu-item-type-custom menu-item-object-custom  last_item menu-item-1150"><a href="https://developers.meethue.com/wp-login.php?action=logout&amp;_wpnonce=7ba37570d6">Log out</a></li>
+</ul>
+</li>
+</ul></div>						</div>
+						<p class="titleExplore">How to <span class="boldTitle">develop for Hue?</span></p>						</div>
+					</nav><!-- #site-navigation -->
+
+				</div>
+			</header><!-- #masthead -->
+
+
+			<div id="content" class="site-content">
+
+<div id="primary" class="">
+
+    <div class="localnavDiv">
+
+        
+        <ul class="localNav">
+
+
+            <div class="menu-develop_menulocal-menu-container"><ul id="menu-develop_menulocal-menu" class="localNav"><li id="menu-item-174" class="localLeft menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-174"><a href="#">Develop</a>
+<ul class="sub-menu">
+	<li id="menu-item-160" class="localRight menu-item menu-item-type-post_type menu-item-object-page menu-item-160"><a href="https://developers.meethue.com/develop/tools-and-sdks/">Tools and SDKs</a></li>
+	<li id="menu-item-1361" class="localRight menu-item menu-item-type-post_type menu-item-object-page menu-item-1361"><a href="https://developers.meethue.com/develop/hue-entertainment/">Hue Entertainment</a></li>
+	<li id="menu-item-161" class="localRight menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-161 active"><a href="https://developers.meethue.com/develop/hue-api/">Hue API</a></li>
+	<li id="menu-item-162" class="localRight menu-item menu-item-type-post_type menu-item-object-page menu-item-162"><a href="https://developers.meethue.com/develop/application-design-guidance/">Application Design Guidance</a></li>
+	<li id="menu-item-163" class="localRight menu-item menu-item-type-post_type menu-item-object-page  last_item menu-item-163"><a href="https://developers.meethue.com/develop/get-started-2/">Get Started</a></li>
+</ul>
+</li>
+</ul></div>
+        </ul>
+
+    </div>
+
+    <main id="main" class="site-main">
+
+        <div class="menu-hueapi-container"><ul id="menu-hueapi" class="nav-menu"><li id="menu-item-1095" class="localLi menu-item menu-item-type-custom menu-item-object-custom menu-item-1095"><a href="https://developers.meethue.com/develop/hue-api/">Overview</a></li>
+<li id="menu-item-460" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-460"><a href="https://developers.meethue.com/develop/hue-api/datatypes-and-time-patterns/">Datatypes and Time Patterns</a></li>
+<li id="menu-item-464" class="localLi menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-462 current_page_item menu-item-464 active"><a href="https://developers.meethue.com/develop/hue-api/lights-api/">1. Lights API</a></li>
+<li id="menu-item-517" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-517"><a href="https://developers.meethue.com/develop/hue-api/groupds-api/">2. Groups API</a></li>
+<li id="menu-item-518" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-518"><a href="https://developers.meethue.com/develop/hue-api/3-schedules-api/">3. Schedules API</a></li>
+<li id="menu-item-519" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-519"><a href="https://developers.meethue.com/develop/hue-api/4-scenes/">4. Scenes API</a></li>
+<li id="menu-item-520" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-520"><a href="https://developers.meethue.com/develop/hue-api/5-sensors-api/">5. Sensors API</a></li>
+<li id="menu-item-521" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-521"><a href="https://developers.meethue.com/develop/hue-api/6-rules-api/">6. Rules API</a></li>
+<li id="menu-item-522" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-522"><a href="https://developers.meethue.com/develop/hue-api/7-configuration-api/">7 Configuration API</a></li>
+<li id="menu-item-523" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-523"><a href="https://developers.meethue.com/develop/hue-api/8-info-api-deprecated-as-of-1-15/">8. Info API (deprecated as of 1.15)</a></li>
+<li id="menu-item-524" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-524"><a href="https://developers.meethue.com/develop/hue-api/9-resourcelinks-api/">9. Resourcelinks API</a></li>
+<li id="menu-item-516" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-516"><a href="https://developers.meethue.com/develop/hue-api/10-capabilities-api/">10. Capabilities API</a></li>
+<li id="menu-item-2116" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-2116"><a href="https://developers.meethue.com/develop/hue-api/remote-api-quick-start-guide/">Remote API Quick start guide</a></li>
+<li id="menu-item-537" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-537"><a href="https://developers.meethue.com/develop/hue-api/remote-authentication/">Remote Authentication</a></li>
+<li id="menu-item-680" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-680"><a href="https://developers.meethue.com/develop/hue-api/remote-hue-api-error-messages/">Remote Hue API – Error Messages</a></li>
+<li id="menu-item-683" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-683"><a href="https://developers.meethue.com/develop/hue-api/error-messages/">Error messages</a></li>
+<li id="menu-item-687" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-687"><a href="https://developers.meethue.com/develop/hue-api/message-structure-and-response/">Message Structure and Response</a></li>
+<li id="menu-item-693" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-693"><a href="https://developers.meethue.com/develop/hue-api/supported-devices/">Supported Devices</a></li>
+<li id="menu-item-704" class="localLi menu-item menu-item-type-post_type menu-item-object-page menu-item-704"><a href="https://developers.meethue.com/develop/hue-api/api-documentation-changelog/">API Documentation Changelog</a></li>
+<li id="menu-item-713" class="localLi menu-item menu-item-type-post_type menu-item-object-page  last_item menu-item-713"><a href="https://developers.meethue.com/develop/hue-api/glossary-terms/">Glossary terms</a></li>
+</ul></div>
+<article id="post-462" class="post-462 page type-page status-publish hentry category-uncategorized">
+	<header class="entry-header">
+		<h1 class="entry-title">1. Lights API</h1>		<span style="font-family:CentraleSans-Light; ;font-size:18px;">     <span>
+		</span></span></header><!-- .entry-header -->
+		<img id="imgm" class="" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/moblogo.png"> 
+				<div class="entry-content">
+
+			<h2 id="11_get_all_lights"><a id="get-all-lights"></a>1.1. Get all lights</h2>
+<table style="height: 251px;" width="831">
+<tbody>
+<tr>
+<td style="width: 407px;">URL</td>
+<td style="width: 408px;"><code><span style="font-size: 16px;">/api/&lt;username&gt;/lights</span></code></td>
+</tr>
+<tr>
+<td style="width: 407px;">Method</td>
+<td style="width: 408px;"><code><span style="font-size: 16px;">GET</span></code></td>
+</tr>
+<tr>
+<td style="width: 407px;">Version</td>
+<td style="width: 408px;">1.0</td>
+</tr>
+<tr>
+<td style="width: 407px;">Permission</td>
+<td style="width: 408px;">Whitelist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="111_description">1.1.1. Description</h3>
+<p>Gets a list of all lights that have been discovered by the bridge.</p>
+<h3 id="112_response">1.1.2. Response</h3>
+<p>Returns a list of all lights in the system.</p>
+<p>If there are no lights in the system then the bridge will return an empty object, {}.</p>
+<h3 id="113_response_example">1.1.3. Sample Response</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">{
+"1": {
+        "state": {
+            "on": false,
+            "bri": 1,
+            "hue": 33761,
+            "sat": 254,
+            "effect": "none",
+            "xy": [
+                0.3171,
+                0.3366
+            ],
+            "ct": 159,
+            "alert": "none",
+            "colormode": "xy",
+            "mode": "homeautomation",
+            "reachable": true
+        },
+        "swupdate": {
+            "state": "noupdates",
+            "lastinstall": "2018-01-02T19:24:20"
+        },
+        "type": "Extended color light",
+        "name": "Hue color lamp 7",
+        "modelid": "LCT007",
+        "manufacturername": "Philips",
+        "productname": "Hue color lamp",
+        "capabilities": {
+            "certified": true,
+            "control": {
+                "mindimlevel": 5000,
+                "maxlumen": 600,
+                "colorgamuttype": "B",
+                "colorgamut": [
+                    [
+                        0.675,
+                        0.322
+                    ],
+                    [
+                        0.409,
+                        0.518
+                    ],
+                    [
+                        0.167,
+                        0.04
+                    ]
+                ],
+                "ct": {
+                    "min": 153,
+                    "max": 500
+                }
+            },
+            "streaming": {
+                "renderer": true,
+                "proxy": false
+            }
+        },
+        "config": {
+            "archetype": "sultanbulb",
+            "function": "mixed",
+            "direction": "omnidirectional"
+        },
+        "uniqueid": "00:17:88:01:00:bd:c7:b9-0b",
+        "swversion": "5.105.0.21169"
+    }
+}</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">{</span><span class=""></span></li><li class=" even"><span class=""></span><span class="st1">"1"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" odd"><span class="">        </span><span class="st1">"state"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" even"><span class="">            </span><span class="st1">"on"</span><span class="">: </span><span class="kw1">false</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"bri"</span><span class="">: </span><span class="nu0">1</span><span class="">,</span></li><li class=" even"><span class="">            </span><span class="st1">"hue"</span><span class="">: </span><span class="nu0">33761</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"sat"</span><span class="">: </span><span class="nu0">254</span><span class="">,</span></li><li class=" even"><span class="">            </span><span class="st1">"effect"</span><span class="">: </span><span class="st1">"none"</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"xy"</span><span class="">: </span><span class="br0">[</span><span class=""></span></li><li class=" even"><span class="">                </span><span class="nu0">0.3171</span><span class="">,</span></li><li class=" odd"><span class="">                </span><span class="nu0">0.3366</span><span class=""></span></li><li class=" even"><span class="">            </span><span class="br0">]</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"ct"</span><span class="">: </span><span class="nu0">159</span><span class="">,</span></li><li class=" even"><span class="">            </span><span class="st1">"alert"</span><span class="">: </span><span class="st1">"none"</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"colormode"</span><span class="">: </span><span class="st1">"xy"</span><span class="">,</span></li><li class=" even"><span class="">            </span><span class="st1">"mode"</span><span class="">: </span><span class="st1">"homeautomation"</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"reachable"</span><span class="">: </span><span class="kw1">true</span><span class=""></span></li><li class=" even"><span class="">        </span><span class="br0">}</span><span class="">,</span></li><li class=" odd"><span class="">        </span><span class="st1">"swupdate"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" even"><span class="">            </span><span class="st1">"state"</span><span class="">: </span><span class="st1">"noupdates"</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"lastinstall"</span><span class="">: </span><span class="st1">"2018-01-02T19:24:20"</span><span class=""></span></li><li class=" even"><span class="">        </span><span class="br0">}</span><span class="">,</span></li><li class=" odd"><span class="">        </span><span class="st1">"type"</span><span class="">: </span><span class="st1">"Extended color light"</span><span class="">,</span></li><li class=" even"><span class="">        </span><span class="st1">"name"</span><span class="">: </span><span class="st1">"Hue color lamp 7"</span><span class="">,</span></li><li class=" odd"><span class="">        </span><span class="st1">"modelid"</span><span class="">: </span><span class="st1">"LCT007"</span><span class="">,</span></li><li class=" even"><span class="">        </span><span class="st1">"manufacturername"</span><span class="">: </span><span class="st1">"Philips"</span><span class="">,</span></li><li class=" odd"><span class="">        </span><span class="st1">"productname"</span><span class="">: </span><span class="st1">"Hue color lamp"</span><span class="">,</span></li><li class=" even"><span class="">        </span><span class="st1">"capabilities"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" odd"><span class="">            </span><span class="st1">"certified"</span><span class="">: </span><span class="kw1">true</span><span class="">,</span></li><li class=" even"><span class="">            </span><span class="st1">"control"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" odd"><span class="">                </span><span class="st1">"mindimlevel"</span><span class="">: </span><span class="nu0">5000</span><span class="">,</span></li><li class=" even"><span class="">                </span><span class="st1">"maxlumen"</span><span class="">: </span><span class="nu0">600</span><span class="">,</span></li><li class=" odd"><span class="">                </span><span class="st1">"colorgamuttype"</span><span class="">: </span><span class="st1">"B"</span><span class="">,</span></li><li class=" even"><span class="">                </span><span class="st1">"colorgamut"</span><span class="">: </span><span class="br0">[</span><span class=""></span></li><li class=" odd"><span class="">                    </span><span class="br0">[</span><span class=""></span></li><li class=" even"><span class="">                        </span><span class="nu0">0.675</span><span class="">,</span></li><li class=" odd"><span class="">                        </span><span class="nu0">0.322</span><span class=""></span></li><li class=" even"><span class="">                    </span><span class="br0">]</span><span class="">,</span></li><li class=" odd"><span class="">                    </span><span class="br0">[</span><span class=""></span></li><li class=" even"><span class="">                        </span><span class="nu0">0.409</span><span class="">,</span></li><li class=" odd"><span class="">                        </span><span class="nu0">0.518</span><span class=""></span></li><li class=" even"><span class="">                    </span><span class="br0">]</span><span class="">,</span></li><li class=" odd"><span class="">                    </span><span class="br0">[</span><span class=""></span></li><li class=" even"><span class="">                        </span><span class="nu0">0.167</span><span class="">,</span></li><li class=" odd"><span class="">                        </span><span class="nu0">0.04</span><span class=""></span></li><li class=" even"><span class="">                    </span><span class="br0">]</span><span class=""></span></li><li class=" odd"><span class="">                </span><span class="br0">]</span><span class="">,</span></li><li class=" even"><span class="">                </span><span class="st1">"ct"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" odd"><span class="">                    </span><span class="st1">"min"</span><span class="">: </span><span class="nu0">153</span><span class="">,</span></li><li class=" even"><span class="">                    </span><span class="st1">"max"</span><span class="">: </span><span class="nu0">500</span><span class=""></span></li><li class=" odd"><span class="">                </span><span class="br0">}</span><span class=""></span></li><li class=" even"><span class="">            </span><span class="br0">}</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"streaming"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" even"><span class="">                </span><span class="st1">"renderer"</span><span class="">: </span><span class="kw1">true</span><span class="">,</span></li><li class=" odd"><span class="">                </span><span class="st1">"proxy"</span><span class="">: </span><span class="kw1">false</span><span class=""></span></li><li class=" even"><span class="">            </span><span class="br0">}</span><span class=""></span></li><li class=" odd"><span class="">        </span><span class="br0">}</span><span class="">,</span></li><li class=" even"><span class="">        </span><span class="st1">"config"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" odd"><span class="">            </span><span class="st1">"archetype"</span><span class="">: </span><span class="st1">"sultanbulb"</span><span class="">,</span></li><li class=" even"><span class="">            </span><span class="st1">"function"</span><span class="">: </span><span class="st1">"mixed"</span><span class="">,</span></li><li class=" odd"><span class="">            </span><span class="st1">"direction"</span><span class="">: </span><span class="st1">"omnidirectional"</span><span class=""></span></li><li class=" even"><span class="">        </span><span class="br0">}</span><span class="">,</span></li><li class=" odd"><span class="">        </span><span class="st1">"uniqueid"</span><span class="">: </span><span class="st1">"00:17:88:01:00:bd:c7:b9-0b"</span><span class="">,</span></li><li class=" even"><span class="">        </span><span class="st1">"swversion"</span><span class="">: </span><span class="st1">"5.105.0.21169"</span><span class=""></span></li><li class=" odd"><span class="">    </span><span class="br0">}</span><span class=""></span></li><li class=" even"><span class=""></span><span class="br0">}</span></li></ul><pre style="display: none;">{
+"1": {
+        "state": {
+            "on": false,
+            "bri": 1,
+            "hue": 33761,
+            "sat": 254,
+            "effect": "none",
+            "xy": [
+                0.3171,
+                0.3366
+            ],
+            "ct": 159,
+            "alert": "none",
+            "colormode": "xy",
+            "mode": "homeautomation",
+            "reachable": true
+        },
+        "swupdate": {
+            "state": "noupdates",
+            "lastinstall": "2018-01-02T19:24:20"
+        },
+        "type": "Extended color light",
+        "name": "Hue color lamp 7",
+        "modelid": "LCT007",
+        "manufacturername": "Philips",
+        "productname": "Hue color lamp",
+        "capabilities": {
+            "certified": true,
+            "control": {
+                "mindimlevel": 5000,
+                "maxlumen": 600,
+                "colorgamuttype": "B",
+                "colorgamut": [
+                    [
+                        0.675,
+                        0.322
+                    ],
+                    [
+                        0.409,
+                        0.518
+                    ],
+                    [
+                        0.167,
+                        0.04
+                    ]
+                ],
+                "ct": {
+                    "min": 153,
+                    "max": 500
+                }
+            },
+            "streaming": {
+                "renderer": true,
+                "proxy": false
+            }
+        },
+        "config": {
+            "archetype": "sultanbulb",
+            "function": "mixed",
+            "direction": "omnidirectional"
+        },
+        "uniqueid": "00:17:88:01:00:bd:c7:b9-0b",
+        "swversion": "5.105.0.21169"
+    }
+}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h2 id="12_get_new_lights"><a id="get-new-lights"></a>1.2. Get new lights</h2>
+<table style="height: 134px;" width="990">
+<tbody>
+<tr style="height: 26px;">
+<td style="width: 487px; height: 26px;">URL</td>
+<td style="width: 487px; height: 26px;"><code><span style="font-size: 16px;">/api/&lt;username&gt;/lights/new</span></code></td>
+</tr>
+<tr style="height: 26px;">
+<td style="width: 487px; height: 26px;">Method</td>
+<td style="width: 487px; height: 26px;"><code><span style="font-size: 16px;">GET</span></code></td>
+</tr>
+<tr style="height: 29.9375px;">
+<td style="width: 487px; height: 29.9375px;">Version</td>
+<td style="width: 487px; height: 29.9375px;">1.0</td>
+</tr>
+<tr style="height: 27px;">
+<td style="width: 487px; height: 27px;">Permission</td>
+<td style="width: 487px; height: 27px;">Whitelist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="121_description">1.2.1. Description</h3>
+<p>Gets a list of lights that were discovered the last time a search for
+ new lights was performed. The list of new lights is always deleted when
+ a new search is started.</p>
+<h3 id="122_response">1.2.2. Response</h3>
+<table style="height: 22px;" width="1121">
+<tbody>
+<tr>
+<td style="width: 366px;">Name</td>
+<td style="width: 366px;">Type</td>
+<td style="width: 367px;">Description</td>
+</tr>
+<tr>
+<td style="width: 366px;">Lastscan</td>
+<td style="width: 366px;">string</td>
+<td style="width: 367px;">Returns “active” if a scan is currently 
+on-going, “none” if a scan has not been performed since the bridge was 
+powered on, or else the date and time that the last scan was completed 
+in ISO 8601:2004 format <span style="font-size: 16px;"><code><span style="font-size: 16px;">(YYYY-MM-DDThh:mm:ss)</span>.</code></span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="123_response_example">1.2.3. Sample Response</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">{
+	"7": {"name": "Hue Lamp 7"},
+	"8": {"name": "Hue Lamp 8"},
+	"lastscan": "2012-10-29T12:00:00"
+}</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">{</span><span class=""></span></li><li class=" even"><span class="">	</span><span class="st1">"7"</span><span class="">: </span><span class="br0">{</span><span class="st1">"name"</span><span class="">: </span><span class="st1">"Hue Lamp 7"</span><span class="br0">}</span><span class="">,</span></li><li class=" odd"><span class="">	</span><span class="st1">"8"</span><span class="">: </span><span class="br0">{</span><span class="st1">"name"</span><span class="">: </span><span class="st1">"Hue Lamp 8"</span><span class="br0">}</span><span class="">,</span></li><li class=" even"><span class="">	</span><span class="st1">"lastscan"</span><span class="">: </span><span class="st1">"2012-10-29T12:00:00"</span><span class=""></span></li><li class=" odd"><span class=""></span><span class="br0">}</span></li></ul><pre style="display: none;">{
+	"7": {"name": "Hue Lamp 7"},
+	"8": {"name": "Hue Lamp 8"},
+	"lastscan": "2012-10-29T12:00:00"
+}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h2 id="13_search_for_new_lights">1.3. Search for new lights<a id="search-for-new-lights"></a></h2>
+<table style="height: 177px;" width="994">
+<tbody>
+<tr>
+<td style="width: 489px;">URL</td>
+<td style="width: 489px;"><code><span style="font-size: 16px;">/api/&lt;username&gt;/lights</span></code></td>
+</tr>
+<tr>
+<td style="width: 489px;">Method</td>
+<td style="width: 489px;"><code><span style="font-size: 16px;">POST</span></code></td>
+</tr>
+<tr>
+<td style="width: 489px;">Version</td>
+<td style="width: 489px;">1.0</td>
+</tr>
+<tr>
+<td style="width: 489px;">Permission</td>
+<td style="width: 489px;">Whitelist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="131_description">1.3.1. Description</h3>
+<p>Starts searching for new lights.</p>
+<p>The bridge will open the network for 40s. The overall search might 
+take longer since the configuration of (multiple) new devices can take 
+longer. If many devices are found the command will have to be issued a 
+second time after discovery time has elapsed.&nbsp;If the command is 
+received again during search the search will continue for at least an 
+additional 40s.</p>
+<p>When the search has finished, new lights will be available using the 
+get new lights command. In addition, the new lights will now be 
+available by calling get all lights or by calling get group 
+attributes&nbsp;on group 0. Group 0 is a special group that cannot be 
+deleted and will always contain all lights known by the bridge.</p>
+<h3 id="132_response&quot;">1.3.2. Sample Body (Optional)</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">{"deviceid":["45AF34","543636","34AFBE"]}</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">{</span><span class="st1">"deviceid"</span><span class="">:</span><span class="br0">[</span><span class="st1">"45AF34"</span><span class="">,</span><span class="st1">"543636"</span><span class="">,</span><span class="st1">"34AFBE"</span><span class="br0">]</span><span class="br0">}</span></li></ul><pre style="display: none;">{"deviceid":["45AF34","543636","34AFBE"]}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p><b>Note</b>:&nbsp; The maxiumum number of serial numbers in any request is 10.</p>
+<h3 id="133_response">1.3.3. Response</h3>
+<p>Contains a list with a single item that details whether the search started successfully.</p>
+<h3 id="134_response_example">1.3.4. Sample Response</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">[ { "success": { "/lights": "Searching for new devices" }}]</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">[</span><span class=""> </span><span class="br0">{</span><span class=""> </span><span class="st1">"success"</span><span class="">: </span><span class="br0">{</span><span class=""> </span><span class="st1">"/lights"</span><span class="">: </span><span class="st1">"Searching for new devices"</span><span class=""> </span><span class="br0">}</span><span class="br0">}</span><span class="br0">]</span></li></ul><pre style="display: none;">[ { "success": { "/lights": "Searching for new devices" }}]</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h2 id="14_get_light_attributes_and_state">1.4. Get light attributes and state<a id="get-attr-and-state"></a></h2>
+<table style="height: 185px;" width="901">
+<tbody>
+<tr>
+<td style="width: 442px;">URL</td>
+<td style="width: 443px;"><code><span style="font-size: 16px;">/api/&lt;username&gt;/lights/&lt;id&gt;</span></code></td>
+</tr>
+<tr>
+<td style="width: 442px;">Method</td>
+<td style="width: 443px;"><code><span style="font-size: 16px;">GET</span></code></td>
+</tr>
+<tr>
+<td style="width: 442px;">Version</td>
+<td style="width: 443px;">1.0</td>
+</tr>
+<tr>
+<td style="width: 442px;">Permission</td>
+<td style="width: 443px;">Whitelist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="141_description">1.4.1. Description</h3>
+<p>Gets the attributes and state of a given light.</p>
+<h3 id="142_response">1.4.2. Response</h3>
+<table style="height: 320px;" width="961">
+<tbody>
+<tr>
+<td style="width: 313px;">Name</td>
+<td style="width: 313px;">Description</td>
+</tr>
+<tr>
+<td style="width: 313px;">state</td>
+<td style="width: 313px;">Details the state of the light, see the state table below for more details.</td>
+</tr>
+<tr>
+<td style="width: 313px;">type</td>
+<td style="width: 313px;">A fixed name describing the type of light e.g. “Extended color light”.</td>
+</tr>
+<tr>
+<td style="width: 313px;">name</td>
+<td style="width: 313px;">A unique, editable name given to the light.</td>
+</tr>
+<tr>
+<td style="width: 313px;">modelid</td>
+<td style="width: 313px;">The hardware model of the light.</td>
+</tr>
+<tr>
+<td style="width: 313px;">uniqueid</td>
+<td style="width: 313px;">Unique id of the device. The MAC address of the device with a unique endpoint id in the form: AA:BB:CC:DD:EE:FF:00:11-XX</td>
+</tr>
+<tr>
+<td style="width: 313px;">manufacturername</td>
+<td style="width: 313px;">The manufacturer name.</td>
+</tr>
+<tr>
+<td style="width: 313px;">luminaireuniqueid</td>
+<td style="width: 313px;">Unique ID of the luminaire the light is a part
+ of in the format: AA:BB:CC:DD-XX-YY. &nbsp;AA:BB:, … represents the hex
+ of the luminaireid, XX the lightsource position (incremental but may 
+contain gaps) and YY the lightpoint position (index of light in 
+luminaire group). &nbsp;A gap in the lightpoint position indicates an 
+incomplete luminaire (light search required to discover missing light 
+points in this case).</td>
+</tr>
+<tr>
+<td style="width: 313px;">streaming</td>
+<td style="width: 313px;">Current light supports streaming features</td>
+</tr>
+<tr>
+<td style="width: 313px;">renderer</td>
+<td style="width: 313px;">Indicates if a lamp can be used for entertainment streaming as renderer</td>
+</tr>
+<tr>
+<td style="width: 313px;">proxy</td>
+<td style="width: 313px;">Indicates if a lamp can be used for entertainment streaming as a proxy node</td>
+</tr>
+<tr>
+<td style="width: 313px;">swversion</td>
+<td style="width: 313px;">An identifier for the software version running on the light.</td>
+</tr>
+</tbody>
+</table>
+<p>The state object contains the following fields:</p>
+<table style="height: 374px;" width="960">
+<tbody>
+<tr>
+<td style="width: 312px;">Name</td>
+<td style="width: 313px;">Type</td>
+<td style="width: 313px;">Description</td>
+</tr>
+<tr>
+<td style="width: 312px;">on</td>
+<td style="width: 313px;">bool</td>
+<td style="width: 313px;">On/Off state of the light. On=true, Off=false</td>
+</tr>
+<tr>
+<td style="width: 312px;">bri</td>
+<td style="width: 313px;">uint8</td>
+<td style="width: 313px;">Brightness of the light. This is a scale from 
+the minimum brightness the light is capable of, 1, to the maximum 
+capable brightness, 254.</td>
+</tr>
+<tr>
+<td style="width: 312px;">hue</td>
+<td style="width: 313px;">uint16</td>
+<td style="width: 313px;">Hue of the light. This is a wrapping value 
+between 0 and 65535. Note, that hue/sat values are hardware dependent 
+which means that programming two devices with the same value does not 
+garantuee that they will be the same color. Programming 0 and 65535 
+would mean that the light will resemble the color red, 21845 for green 
+and 43690 for blue.</td>
+</tr>
+<tr>
+<td style="width: 312px;">sat</td>
+<td style="width: 313px;">uint8</td>
+<td style="width: 313px;">Saturation of the light. 254 is the most saturated (colored) and 0 is the least saturated (white).</td>
+</tr>
+<tr>
+<td style="width: 312px;">xy</td>
+<td style="width: 313px;">list 2..2 of float 4</td>
+<td style="width: 313px;">The x and y coordinates of a color in CIE color space.<p></p>
+<p>The first entry is the x coordinate and the second entry is the y 
+coordinate. Both x and y are between 0 and 1.&nbsp;Using CIE xy, the 
+colors can be the same on all lamps if the coordinates are within every 
+lamps gamuts (example: “xy”:[0.409,0.5179] is the same color on all 
+lamps). If not, the lamp will calculate it’s closest color and use 
+that.&nbsp;The CIE xy color is absolute, independent from the hardware.</p></td>
+</tr>
+<tr>
+<td style="width: 312px;">ct</td>
+<td style="width: 313px;">uint16</td>
+<td style="width: 313px;">The Mired Color temperature&nbsp;of the light. 2012 connected lights are capable of 153 (6500K) to 500 (2000K).</td>
+</tr>
+<tr>
+<td style="width: 312px;">alert</td>
+<td style="width: 313px;">string</td>
+<td style="width: 313px;">The alert effect,&nbsp;which is a temporary change to the bulb’s state. This can take one of the following values:<br>
+<strong>“none”</strong>&nbsp;– The light is not performing an alert effect.<br>
+<strong>“select”</strong>&nbsp;– The light is performing one breathe cycle.<br>
+<strong>“lselect”</strong>&nbsp;– The light is performing breathe cycles for 15 seconds or until an&nbsp;<code><span style="font-size: 16px;">"alert": "none"</span></code>&nbsp;command
+ is received.Note that this contains the last alert sent to the light 
+and not its current state. i.e. After the breathe cycle has finished the
+ bridge does not reset the alert to “<strong>none</strong>“.</td>
+</tr>
+<tr>
+<td style="width: 312px;">effect</td>
+<td style="width: 313px;">string</td>
+<td style="width: 313px;">The dynamic effect of the light, can either be
+ “none” or “colorloop”.If set to colorloop, the light will cycle through
+ all hues using the current brightness and saturation settings.</td>
+</tr>
+<tr>
+<td style="width: 312px;">colormode</td>
+<td style="width: 313px;">string 2, 2</td>
+<td style="width: 313px;">Indicates the color mode in which the light is
+ working, this is the last command type it received. Values are “hs” for
+ Hue and Saturation, “xy” for XY and “ct” for Color Temperature. This 
+parameter is only present when the light supports at least one of the 
+values.</td>
+</tr>
+<tr>
+<td style="width: 312px;">reachable</td>
+<td style="width: 313px;">bool</td>
+<td style="width: 313px;">Indicates if a light can be reached by the bridge.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="143_response_example">1.4.3. Sample Response</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">{
+	"state": {
+		"hue": 50000,
+		"on": true,
+		"effect": "none",
+		"alert": "none",
+		"bri": 200,
+		"sat": 200,
+		"ct": 500,
+		"xy": [0.5, 0.5],
+		"reachable": true,
+		"colormode": "hs"
+	},
+	"type": "Living Colors",
+	"name": "LC 1",
+	"modelid": "LC0015",
+	"swversion": "1.0.3"
+}</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">{</span><span class=""></span></li><li class=" even"><span class="">	</span><span class="st1">"state"</span><span class="">: </span><span class="br0">{</span><span class=""></span></li><li class=" odd"><span class="">		</span><span class="st1">"hue"</span><span class="">: </span><span class="nu0">50000</span><span class="">,</span></li><li class=" even"><span class="">		</span><span class="st1">"on"</span><span class="">: </span><span class="kw1">true</span><span class="">,</span></li><li class=" odd"><span class="">		</span><span class="st1">"effect"</span><span class="">: </span><span class="st1">"none"</span><span class="">,</span></li><li class=" even"><span class="">		</span><span class="st1">"alert"</span><span class="">: </span><span class="st1">"none"</span><span class="">,</span></li><li class=" odd"><span class="">		</span><span class="st1">"bri"</span><span class="">: </span><span class="nu0">200</span><span class="">,</span></li><li class=" even"><span class="">		</span><span class="st1">"sat"</span><span class="">: </span><span class="nu0">200</span><span class="">,</span></li><li class=" odd"><span class="">		</span><span class="st1">"ct"</span><span class="">: </span><span class="nu0">500</span><span class="">,</span></li><li class=" even"><span class="">		</span><span class="st1">"xy"</span><span class="">: </span><span class="br0">[</span><span class="nu0">0.5</span><span class="">, </span><span class="nu0">0.5</span><span class="br0">]</span><span class="">,</span></li><li class=" odd"><span class="">		</span><span class="st1">"reachable"</span><span class="">: </span><span class="kw1">true</span><span class="">,</span></li><li class=" even"><span class="">		</span><span class="st1">"colormode"</span><span class="">: </span><span class="st1">"hs"</span><span class=""></span></li><li class=" odd"><span class="">	</span><span class="br0">}</span><span class="">,</span></li><li class=" even"><span class="">	</span><span class="st1">"type"</span><span class="">: </span><span class="st1">"Living Colors"</span><span class="">,</span></li><li class=" odd"><span class="">	</span><span class="st1">"name"</span><span class="">: </span><span class="st1">"LC 1"</span><span class="">,</span></li><li class=" even"><span class="">	</span><span class="st1">"modelid"</span><span class="">: </span><span class="st1">"LC0015"</span><span class="">,</span></li><li class=" odd"><span class="">	</span><span class="st1">"swversion"</span><span class="">: </span><span class="st1">"1.0.3"</span><span class=""></span></li><li class=" even"><span class=""></span><span class="br0">}</span></li></ul><pre style="display: none;">{
+	"state": {
+		"hue": 50000,
+		"on": true,
+		"effect": "none",
+		"alert": "none",
+		"bri": 200,
+		"sat": 200,
+		"ct": 500,
+		"xy": [0.5, 0.5],
+		"reachable": true,
+		"colormode": "hs"
+	},
+	"type": "Living Colors",
+	"name": "LC 1",
+	"modelid": "LC0015",
+	"swversion": "1.0.3"
+}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h3 id="144_notes">1.4.4. Notes</h3>
+<p>Note the usage of the colormode parameter: There are 3 ways of 
+setting the light color: xy, color temperature (ct) or hue and 
+saturation (hs). A light may contain different settings for xy, ct and 
+hs, but only the mode indicated by the colormode parameter will be 
+certain to give the active light color.</p>
+<p>Also note that some light state attributes are only present for 
+specific light types. See supported lights link for more information or 
+supported lights jason link for JSON response examples.</p>
+<h2 id="15_set_light_attributes_rename">1.5. Set light attributes (rename)<a id="set-light-attr-rename"></a></h2>
+<table style="height: 112px;" width="911">
+<tbody>
+<tr>
+<td style="width: 447px;">URL</td>
+<td style="width: 448px;"><code><span style="font-size: 16px;">/api/&lt;username&gt;/lights/&lt;id&gt;</span></code></td>
+</tr>
+<tr>
+<td style="width: 447px;">Method</td>
+<td style="width: 448px;"><code><span style="font-size: 16px;">PUT</span></code></td>
+</tr>
+<tr>
+<td style="width: 447px;">Version</td>
+<td style="width: 448px;">1.0</td>
+</tr>
+<tr>
+<td style="width: 447px;">Permission</td>
+<td style="width: 448px;">Whitelist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="151_description">1.5.1. Description</h3>
+<p>Used to rename lights. A light can have its name changed when in any state, including when it is unreachable or off.</p>
+<h3 id="152_body_arguments">1.5.2. Body arguments</h3>
+<table style="height: 43px;" width="1035">
+<tbody>
+<tr>
+<td style="width: 251px;">Name</td>
+<td style="width: 252px;">Type</td>
+<td style="width: 252px;">Description</td>
+<td style="width: 252px;"></td>
+</tr>
+<tr>
+<td style="width: 251px;">name</td>
+<td style="width: 252px;">string 0, 32</td>
+<td style="width: 252px;">The new name for the light. If the name is 
+already taken a space and number will be appended by the bridge e.g. 
+“Bedroom Light 1”.</td>
+<td style="width: 252px;">Required</td>
+</tr>
+</tbody>
+</table>
+<h3 id="153_body">1.5.3. Body</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">{"name":"Bedroom Light"}</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">{</span><span class="st1">"name"</span><span class="">:</span><span class="st1">"Bedroom Light"</span><span class="br0">}</span></li></ul><pre style="display: none;">{"name":"Bedroom Light"}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h3 id="154_response">1.5.4. Response</h3>
+<p>A response to a successful&nbsp;<code><span style="font-size: 16px;">PUT</span></code>&nbsp;request
+ contains confirmation of the arguments passed in. Note: If the new 
+value is too large to return in the response due to internal memory 
+constraints then a value of “Updated.” is returned.</p>
+<h3 id="155_response_example">1.5.5. Sample Response</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">[{"success":{"/lights/1/name":"Bedroom Light"}}]</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">[</span><span class="br0">{</span><span class="st1">"success"</span><span class="">:</span><span class="br0">{</span><span class="st1">"/lights/1/name"</span><span class="">:</span><span class="st1">"Bedroom Light"</span><span class="br0">}</span><span class="br0">}</span><span class="br0">]</span></li></ul><pre style="display: none;">[{"success":{"/lights/1/name":"Bedroom Light"}}]</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h2 id="16_set_light_state">1.6. Set light state<a id="set-light-state"></a></h2>
+<table style="height: 134px;" width="830">
+<tbody>
+<tr>
+<td style="width: 407px;">URL</td>
+<td style="width: 407px;"><code><span style="font-size: 16px;">/api/&lt;username&gt;/lights/&lt;id&gt;/state</span></code></td>
+</tr>
+<tr>
+<td style="width: 407px;">Method</td>
+<td style="width: 407px;"><code><span style="font-size: 16px;">PUT</span></code></td>
+</tr>
+<tr>
+<td style="width: 407px;">Version</td>
+<td style="width: 407px;">1.0</td>
+</tr>
+<tr>
+<td style="width: 407px;">Permission</td>
+<td style="width: 407px;">Whitelist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="161_description">1.6.1. Description</h3>
+<p>Allows the user to turn the light on and off, modify the hue and effects.</p>
+<h3 id="162_body_arguments">1.6.2. Body arguments</h3>
+<table style="height: 226px;" width="884">
+<tbody>
+<tr>
+<td style="width: 214px;">Name</td>
+<td style="width: 214px;">Typre</td>
+<td style="width: 214px;">Description</td>
+<td style="width: 214px;"></td>
+</tr>
+<tr>
+<td style="width: 214px;">on</td>
+<td style="width: 214px;">bool</td>
+<td style="width: 214px;">On/Off state of the light. On=true, Off=false</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">bri</td>
+<td style="width: 214px;">uint8</td>
+<td style="width: 214px;">The brightness value to set the light 
+to.Brightness is a scale from 1 (the minimum the light is capable of) to
+ 254 (the maximum).<p></p>
+<p><strong>Note</strong>: a brightness of 1 is not off.</p>
+<p>e.g. “brightness”: 60 will set the light to a specific brightness</p></td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">hue</td>
+<td style="width: 214px;">uint16</td>
+<td style="width: 214px;">The hue value to set light to.The hue value is
+ a wrapping value between 0 and 65535. Both 0 and 65535 are red, 25500 
+is green and 46920 is blue.<p></p>
+<p>e.g. “hue”: 50000 will set the light to a specific hue.</p></td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">sat</td>
+<td style="width: 214px;">uint8</td>
+<td style="width: 214px;">Saturation of the light. 254 is the most saturated (colored) and 0 is the least saturated (white).</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">xy</td>
+<td style="width: 214px;">list 2..2 of float 4</td>
+<td style="width: 214px;">The x and y coordinates of a color in CIE 
+color space.The first entry is the x coordinate and the second entry is 
+the y coordinate. Both x and y must be between 0 and 1.<br>
+If the specified coordinates are not in the CIE color space, the closest color to the coordinates will be chosen.</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">ct</td>
+<td style="width: 214px;">uint16</td>
+<td style="width: 214px;">The Mired color temperature&nbsp;of the light. 2012 connected lights are capable of 153 (6500K) to 500 (2000K).</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">alert</td>
+<td style="width: 214px;">string</td>
+<td style="width: 214px;">The alert effect,is a temporary change to the bulb’s state, and has one of the following values:<br>
+<strong>“none”</strong>&nbsp;– The light is not performing an alert effect.<br>
+<strong>“select”</strong>&nbsp;– The light is performing one breathe cycle.<br>
+<strong>“lselect”</strong>&nbsp;– The light is performing breathe cycles for 15 seconds or until an&nbsp;<code><span style="font-size: 16px;">"alert": "none"</span></code>&nbsp;command
+ is received.Note that this contains the last alert sent to the light 
+and not its current state. i.e. After the breathe cycle has finished the
+ bridge does not reset the alert to “<strong>none</strong>“.</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">effect</td>
+<td style="width: 214px;">string</td>
+<td style="width: 214px;">The dynamic effect of the light. Currently 
+“none” and “colorloop” are supported. Other values will generate an 
+error of type 7.Setting the effect to colorloop will cycle through all 
+hues using the current brightness and saturation settings.</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">transitiontime</td>
+<td style="width: 214px;">uint16</td>
+<td style="width: 214px;">The duration of the transition from the 
+light’s current state to the new state. This is given as a multiple of 
+100ms and defaults to 4 (400ms). For example, setting&nbsp;<code><span style="font-size: 16px;">transitiontime:10</span></code>&nbsp;will make the transition last 1 second.</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">bri_inc</td>
+<td style="width: 214px;">-254 to 254</td>
+<td style="width: 214px;">Increments or decrements the value of the 
+brightness.&nbsp; bri_inc is ignored if the bri attribute is provided. 
+Any ongoing bri transition is stopped. Setting a value of 0 also stops 
+any ongoing transition. The bridge will return the bri value after the 
+increment is performed.</td>
+<td style="width: 214px;">&nbsp;Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">sat_inc</td>
+<td style="width: 214px;">-254 to 254</td>
+<td style="width: 214px;">Increments or decrements the value of the 
+sat.&nbsp; sat_inc is ignored if the sat attribute is provided. Any 
+ongoing sat transition is stopped. Setting a value of 0 also stops any 
+ongoing transition. The bridge will return the sat value after the 
+increment is performed.</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">hue_inc</td>
+<td style="width: 214px;">-65534 to 65534</td>
+<td style="width: 214px;">Increments or decrements the value of the 
+hue.&nbsp;&nbsp; hue_inc is ignored if the hue attribute is provided. 
+Any ongoing color transition is stopped. Setting a value of 0 also stops
+ any ongoing transition. The bridge will return the hue value after the 
+increment is performed.Note if the resulting values are &lt; 0 or &gt; 
+65535 the result is wrapped. For example:<p></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">{"hue_inc":  1}</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">{</span><span class="st1">"hue_inc"</span><span class="">:  </span><span class="nu0">1</span><span class="br0">}</span></li></ul><pre style="display: none;">{"hue_inc":  1}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p>on a hue value of 65535 results in a hue of 0.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">{"hue_inc":  -2}</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">{</span><span class="st1">"hue_inc"</span><span class="">:  -</span><span class="nu0">2</span><span class="br0">}</span></li></ul><pre style="display: none;">{"hue_inc":  -2}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p>on a hue value of 0 results in a hue of 65534.</p></td>
+<td style="width: 214px;">Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">&nbsp;ct_inc</td>
+<td style="width: 214px;">&nbsp;-65534 to 65534</td>
+<td style="width: 214px;">Increments or decrements the value of the ct. 
+ct_inc is ignored if the ct attribute is provided. Any ongoing color 
+transition is stopped. Setting a value of 0 also stops any ongoing 
+transition. The bridge will return the ct value after the increment is 
+performed.</td>
+<td style="width: 214px;">&nbsp;Optional</td>
+</tr>
+<tr>
+<td style="width: 214px;">&nbsp;xy_inc</td>
+<td style="width: 214px;">&nbsp;list 2..2 of float 4</td>
+<td style="width: 214px;">Increments or decrements the value of the 
+xy.&nbsp; xy_inc is ignored if the xy attribute is provided. Any ongoing
+ color transition is stopped. Setting a value of 0 also stops any 
+ongoing transition. Will stop at it’s gamut boundaries. The bridge will 
+return the xy value after the increment is performed. Max value [0.5, 
+0.5].</td>
+<td style="width: 214px;">Optional</td>
+</tr>
+</tbody>
+</table>
+<h3 id="163_body_example">1.6.3. Sample Body</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">{
+	"hue": 50000,
+	"on": true,
+	"bri": 200
+}</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">{</span><span class=""></span></li><li class=" even"><span class="">	</span><span class="st1">"hue"</span><span class="">: </span><span class="nu0">50000</span><span class="">,</span></li><li class=" odd"><span class="">	</span><span class="st1">"on"</span><span class="">: </span><span class="kw1">true</span><span class="">,</span></li><li class=" even"><span class="">	</span><span class="st1">"bri"</span><span class="">: </span><span class="nu0">200</span><span class=""></span></li><li class=" odd"><span class=""></span><span class="br0">}</span></li></ul><pre style="display: none;">{
+	"hue": 50000,
+	"on": true,
+	"bri": 200
+}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h3 id="164_response">1.6.4. Response</h3>
+<p>A response to a successful PUT request contains confirmation of the 
+arguments passed in. Note: If the new value is too large to return in 
+the response due to internal memory constraints then a value of 
+“Updated.” is returned.</p>
+<h3 id="165_response_example">1.6.5. Sample Response</h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="null" style="display: none;">[
+	{"success":{"/lights/1/state/bri":200}},
+	{"success":{"/lights/1/state/on":true}},
+	{"success":{"/lights/1/state/hue":50000}}
+]</pre><div class="EnlighterJSWrapper atomicEnlighterJSWrapper"><ul class="hoverEnabled atomicEnlighterJS EnlighterJS"><li class=" odd"><span class="br0">[</span><span class=""></span></li><li class=" even"><span class="">	</span><span class="br0">{</span><span class="st1">"success"</span><span class="">:</span><span class="br0">{</span><span class="st1">"/lights/1/state/bri"</span><span class="">:</span><span class="nu0">200</span><span class="br0">}</span><span class="br0">}</span><span class="">,</span></li><li class=" odd"><span class="">	</span><span class="br0">{</span><span class="st1">"success"</span><span class="">:</span><span class="br0">{</span><span class="st1">"/lights/1/state/on"</span><span class="">:</span><span class="kw1">true</span><span class="br0">}</span><span class="br0">}</span><span class="">,</span></li><li class=" even"><span class="">	</span><span class="br0">{</span><span class="st1">"success"</span><span class="">:</span><span class="br0">{</span><span class="st1">"/lights/1/state/hue"</span><span class="">:</span><span class="nu0">50000</span><span class="br0">}</span><span class="br0">}</span><span class=""></span></li><li class=" odd"><span class=""></span><span class="br0">]</span></li></ul><pre style="display: none;">[
+	{"success":{"/lights/1/state/bri":200}},
+	{"success":{"/lights/1/state/on":true}},
+	{"success":{"/lights/1/state/hue":50000}}
+]</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h3 id="166_notes">1.6.6. Notes</h3>
+<p>A light cannot have its hue, saturation, brightness, effect, ct or xy
+ modified when it is turned off. Doing so will return 201 error.</p>
+<p>There are 3 methods available to set the color of the light – hue and
+ saturation (hs), xy or color temperature (ct). If multiple methods are 
+used then a priority is used: xy &gt; ct &gt; hs. All included 
+parameters will be updated but the ‘colormode’ will be set using the 
+priority system.</p>
+<h2 id="17_delete_lights">1.7. Delete lights<a id="del-lights"></a></h2>
+<table style="height: 127px;" width="706">
+<tbody>
+<tr>
+<td style="width: 345px;">URL</td>
+<td style="width: 345px;"><code><span style="font-size: 16px;">/api/&lt;username&gt;/lights/&lt;id&gt;</span></code></td>
+</tr>
+<tr>
+<td style="width: 345px;">Method</td>
+<td style="width: 345px;"><code><span style="font-size: 16px;">DELETE</span></code></td>
+</tr>
+<tr>
+<td style="width: 345px;">Version</td>
+<td style="width: 345px;">1.7</td>
+</tr>
+<tr>
+<td style="width: 345px;">Permission</td>
+<td style="width: 345px;">Whitelist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="171_description">1.7.1. Description</h3>
+<p>Deletes a light from the bridge.</p>
+
+			</div><!-- .entry-content -->
+
+			<script>
+
+
+
+				//  <div id="entry-anchor" class="entry-anchor">
+
+				//var anchor_div = document.getElementById("entry-anchor");
+				var anchor = document.getElementsByTagName("h2"); //take all h2
+
+				if( anchor.length>0)
+				{
+
+					var anchor_div = document.createElement("div");
+					anchor_div.setAttribute("class","entry-anchor");
+ 
+					var para = document.createElement("p");
+					para.setAttribute("class", "anchor-title");
+					var text = document.createTextNode("On this page:");
+					para.appendChild(text);
+					anchor_div.appendChild(para);
+
+					for (var i = 0; i < anchor.length; i++) {
+
+						var children = anchor[i].children; //take all children, hopefully anchors  
+						for (var ch = 0; ch < children.length; ch++) {
+							var c = children[ch];
+							if (c.nodeName == "A"); { //if the element is anchor    
+								var id = c.id; // get the the id of each anchor
+								var text = "";
+								var text = anchor[i].innerHTML;
+								var a = document.createElement("a");
+								a.setAttribute("class","findthem");
+								a.href="#"+id;
+								a.innerHTML = text;
+								linebreak = document.createElement("br");
+								if (i > 0){
+									var hr = document.createElement("hr");
+									anchor_div.appendChild(hr);
+								}
+								// anchor_div.appendChild(linebreak);
+								anchor_div.appendChild(a); //div+anchors
+							}
+
+						}
+					}  
+ 
+					var article= document.getElementsByTagName("article");//find the article where i need the div
+
+					article[0].appendChild(anchor_div);
+
+
+				}
+
+				</script><div class="entry-anchor"><p class="anchor-title">On this page:</p><a class="findthem" href="#get-all-lights"><a id="get-all-lights"></a>1.1. Get all lights</a><hr><a class="findthem" href="#get-new-lights"><a id="get-new-lights"></a>1.2. Get new lights</a><hr><a class="findthem" href="#search-for-new-lights">1.3. Search for new lights<a id="search-for-new-lights"></a></a><hr><a class="findthem" href="#get-attr-and-state">1.4. Get light attributes and state<a id="get-attr-and-state"></a></a><hr><a class="findthem" href="#set-light-attr-rename">1.5. Set light attributes (rename)<a id="set-light-attr-rename"></a></a><hr><a class="findthem" href="#set-light-state">1.6. Set light state<a id="set-light-state"></a></a><hr><a class="findthem" href="#del-lights">1.7. Delete lights<a id="del-lights"></a></a></div>
+
+
+				</article><!-- #post-462 -->
+
+
+
+
+    </main><!-- #main -->
+</div>
+</div>
+</div>  
+<!-- #primary -->
+
+
+        
+<footer class="hue-footer">
+	<div class="mobileTest">
+		<div class="philips-logo">
+			<img class="philLogo" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/footer_logo.png">
+            
+		</div>
+    
+		<div class="philips-social-media">
+			<p class="connecting">Connect with us</p><p>
+				<a href="https://twitter.com/philipshuedev">   <img class="socLogoL" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/tw.png"></a>
+				<a href="https://plus.google.com/+PhilipsHueDeveloperProgram">        <img class="socLogoL" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/google_icon.png"></a>
+                 
+			</p></div>
+    
+			<div class="hue-footer-nav">
+				<a class="navLink" href="https://developers.meethue.com/support/">Contact</a>
+				<a class="navLink" href="https://developers.meethue.com/terms-of-use-and-conditions/">Terms &amp; Conditions</a>
+				<a class="navLink" href="https://www2.meethue.com/en-us/support/privacy-policy">Privacy</a>
+				<a class="navLink" href="https://www.signify.com/global/product-security">Product Security</a>
+			</div>
+    
+			<div class="hue-footer-copyright">
+				<p class="rights">©2018 Signify Holding. All rights reserved.</p>
+			</div>
+
+		</div>
+	</footer><!-- #colophon -->
+
+	<div id="um_upload_single" style="display:none">
+	
+</div><div id="um_view_photo" style="display:none">
+
+	<a href="#" data-action="um_remove_modal" class="um-modal-close"><i class="um-faicon-times"></i></a>
+	
+	<div class="um-modal-body photo">
+	
+		<div class="um-modal-photo">
+
+		</div>
+
+	</div>
+	
+</div><script type="text/javascript">!function(t,e){"use strict";function n(){if(!a){a=!0;for(var t=0;t<d.length;t++)d[t].fn.call(window,d[t].ctx);d=[]}}function o(){"complete"===document.readyState&&n()}t=t||"docReady",e=e||window;var d=[],a=!1,c=!1;e[t]=function(t,e){return a?void setTimeout(function(){t(e)},1):(d.push({fn:t,ctx:e}),void("complete"===document.readyState||!document.attachEvent&&"interactive"===document.readyState?setTimeout(n,1):c||(document.addEventListener?(document.addEventListener("DOMContentLoaded",n,!1),window.addEventListener("load",n,!1)):(document.attachEvent("onreadystatechange",o),window.attachEvent("onload",n)),c=!0)))}}("wpBruiserDocReady",window);
+			(function(){var wpbrLoader = (function(){var g=document,b=g.createElement('script'),c=g.scripts[0];b.async=1;b.src='https://developers.meethue.com/?gdbc-client=3.1.23-'+(new Date()).getTime();c.parentNode.insertBefore(b,c);});wpBruiserDocReady(wpbrLoader);window.onunload=function(){};window.addEventListener('pageshow',function(event){if(event.persisted){(typeof window.WPBruiserClient==='undefined')?wpbrLoader():window.WPBruiserClient.requestTokens();}},false);})();
+</script><script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/navigation.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/skip-link-focus-fix.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var newsletter = {"messages":{"email_error":"The email is not correct","name_error":"The name is not correct","surname_error":"The last name is not correct","privacy_error":"You must accept the privacy statement"},"profile_max":"20"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/validate.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/mootools-core-yc.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/EnlighterJS.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/imagesloaded.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/masonry.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/jquery.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/select2.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/underscore.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpUtilSettings = {"ajax":{"url":"\/wp-admin\/admin-ajax.php"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/wp-util.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-crop.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-modal.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-jquery-form.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-fileupload.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/picker.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/picker_002.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/picker_003.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/legacy.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-raty.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-tipsy.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-scrollbar.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-functions.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-responsive.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-conditional.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var um_scripts = {"nonce":"8a0b4f7ce0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-scripts.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-members.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-profile.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/um-account.js"></script>
+<script type="text/javascript" src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/wp-embed.js"></script>
+<script type="text/javascript">/* <![CDATA[ */EnlighterJS_Config = {"selector":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"language":"cpp","theme":"atomic","indent":-1,"hover":"hoverEnabled","showLinenumbers":false,"rawButton":false,"infoButton":false,"windowButton":true,"rawcodeDoubleclick":true,"grouping":true,"cryptex":{"enabled":false,"email":"mail@example.tld"}};!function(){var a=function(a){var b="Enlighter Error: ";console.error?console.error(b+a):console.log&&console.log(b+a)};return window.addEvent?"undefined"==typeof EnlighterJS?void a("Javascript Resources not loaded yet!"):"undefined"==typeof EnlighterJS_Config?void a("Configuration not loaded yet!"):void window.addEvent("domready",function(){EnlighterJS.Util.Init(EnlighterJS_Config.selector.block,EnlighterJS_Config.selector.inline,EnlighterJS_Config)}):void a("MooTools Framework not loaded yet!")}();;/* ]]> */</script>		<script type="text/javascript">
+			jQuery( '#request' ).val( '' );
+		</script>
+		<script src="1.%20Lights%20API%20%E2%80%93%20Philips%20Hue%20Developer%20Program_files/wa_code.js" async=""></script> 
+	<script>window._satellite && _satellite.pageBottom();</script> 
+
+
+
+</body></html>
