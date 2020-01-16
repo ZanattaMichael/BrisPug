@@ -1,0 +1,11 @@
+{
+  "bindings": [
+    {
+      "name": "InputBlob",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "azure-webjobs-hosts/demo/{name}",
+      "connection": "AzureWebJobsStorage"
+    }
+  ]
+}
