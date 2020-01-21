@@ -172,7 +172,10 @@ $UserGroup = [PSCustomObject]@{
 
 # Select Expressions allow you to recreate an existing object, adding additional properties
 # Select Expressions are denoted by the hashtable @{} with the Name, Expression 
-$UserGroup = $UserGroup | Select-Object -Property *Name, @{Name = "UserGroupDescription"; Expression = {"Brisbane PowerShell User Group"}}
+$UserGroup = $UserGroup | Select-Object -Property *Name,
+    @{
+            Name = "UserGroupDescription";
+            Expression = {"Brisbane PowerShell User Group"}}
 
 # Let's run it!
 $UserGroup 
