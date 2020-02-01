@@ -60,7 +60,9 @@ Add-LabMachineDefinition -Name AAHRBW2 -Memory 4GB -Processors 2 -DomainName cat
 #has the fix already included.
 Install-Lab -NetworkSwitches -BaseImages -VMs -Domains -StartRemainingMachines
 
-Install-LabSoftwarePackage -Path $labSources\OSUpdates\2016\windows10.0-kb3206632-x64_b2e20b7e1aa65288007de21e88cd21c3ffb05110.msu -ComputerName EXCH1 -Timeout 60
+Install-LabSoftwarePackage -Path "$labSources\OSUpdates\2016\Exchange2016.msu" -ComputerName EXCH1 -Timeout 60
+Install-LabSoftwarePackage -Path "$labSources\OSUpdates\2016\ndp48-x86-x64-allos-enu.exe" -ComputerName EXCH1 -Timeout 60
+Install-LabSoftwarePackage -Path "$labSources\OSUpdates\2016\UcmaRuntimeSetup.exe" -ComputerName EXCH1 -Timeout 60
 
 Restart-LabVM -ComputerName EXCH1 -Wait
 
