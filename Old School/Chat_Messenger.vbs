@@ -1274,7 +1274,7 @@ End Sub
 Public Sub ArgumentHandler()
 
 
-	If WScript.Arguments.Count < 1 Then
+	If WScript.Arguments.Count > 0 Then
 
 		If WScript.Arguments.Item(0) = Argument_00 And WScript.Arguments.Item(0) <> Argument_BLANK Then
 		
