@@ -6,8 +6,14 @@ without having to recreate the script block. There are two flavors, implicit or 
  Explicit: You define what functions you wish to pull.
 #>
 
-Function AlternativeFunction($test) {
-    Write-Output "Function Called"
+Function TestAnotherFunction(){
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory)]
+        [String]
+        $ParameterName
+    )
+    Write-Output $ParameterName
 }
 
 # Enumerate all the Functions that are not loaded from a module. This will include alias functions as well. 
