@@ -12,7 +12,7 @@ Function Test-MVPStatus {
             Uri = 'https://www.mvp.microsoft.com/en-us/MvpSearch?kw={0}' -f [System.Web.HttpUtility]::UrlEncode($Name)
         }
 
-        (Invoke-WebRequest @params).Content -notmatch '(No results found for the selected query.)'
+        Write-Output (Invoke-WebRequest @params).Content -notmatch '(No results found for the selected query.)'
     }
 }
 
