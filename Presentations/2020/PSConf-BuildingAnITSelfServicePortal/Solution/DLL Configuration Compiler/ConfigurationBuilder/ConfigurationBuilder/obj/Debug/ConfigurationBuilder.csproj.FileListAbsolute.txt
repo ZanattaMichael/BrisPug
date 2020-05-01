@@ -1,0 +1,9 @@
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilder\ConfigurationBuilder\bin\Debug\ConfigurationBuilder.dll
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilder\ConfigurationBuilder\bin\Debug\ConfigurationBuilder.pdb
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilder\ConfigurationBuilder\obj\Debug\ConfigurationBuilder.dll
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilder\ConfigurationBuilder\obj\Debug\ConfigurationBuilder.pdb
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilder\ConfigurationBuilder\obj\Debug\ConfigurationBuilder.dll
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilder\ConfigurationBuilder\obj\Debug\ConfigurationBuilder.pdb
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilder\ConfigurationBuilder\bin\Debug\ConfigurationBuilder.dll
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilder\ConfigurationBuilder\bin\Debug\ConfigurationBuilder.pdb
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilder\ConfigurationBuilder\obj\Debug\ConfigurationBuilder.csprojAssemblyReference.cache

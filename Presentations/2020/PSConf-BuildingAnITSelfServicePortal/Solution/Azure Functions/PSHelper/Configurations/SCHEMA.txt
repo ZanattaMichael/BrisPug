@@ -1,0 +1,52 @@
+
+@{
+
+    #
+    # Runbook Parameters
+    #
+
+    RunbookPSObject = @{
+        # Runbook Name
+        Name = "Name of Azure Automation Runbook"
+        # Runboook Value
+        Parameters = @(
+            @{
+                Name = "Runbook Parameter Name"
+                HTMLName = "The 'HTMLName' of the Value to get"
+            }
+        )
+    }
+
+    #
+    # Rest Body Property
+    #
+
+    RestBody = @{
+        Type = "Type"
+        HTMLNameSelected = 
+                "This is a 'HTMLName' of a value that will be added to the message."
+    }
+
+    #
+    # Set the HTML Content
+    #
+
+    HTMLContent = @{
+        Type = "Type. Must be the same as the RestBody.Type"
+        ResponseURL = "The URL to sent the REST response to."
+        Title = "Title of the Card"
+        Description = "Description of the Card"
+        Owners = @('The Owners of the Configuration. This is hardcoded to reduce complexity
+                    in these demos. Ideally it would be better for the service to
+                    perform the lookups on your behalf.')
+
+        HTMLConfig = @(         
+            @{
+                HTMLName = "Unique Name for the Element"
+                ElementType = "Type of the Element (INPUT -or SELECT)"
+                Values = @("Placeholder Values or Select Items")
+            }          
+        )
+    }
+
+}

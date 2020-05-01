@@ -1,0 +1,14 @@
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilderCore\ConfigurationBuilderCore\bin\Debug\netcoreapp2.0\ConfigurationBuilderCore.deps.json
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilderCore\ConfigurationBuilderCore\bin\Debug\netcoreapp2.0\ConfigurationBuilderCore.dll
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilderCore\ConfigurationBuilderCore\bin\Debug\netcoreapp2.0\ConfigurationBuilderCore.pdb
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilderCore\ConfigurationBuilderCore\obj\Debug\netcoreapp2.0\ConfigurationBuilderCore.AssemblyInfoInputs.cache
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilderCore\ConfigurationBuilderCore\obj\Debug\netcoreapp2.0\ConfigurationBuilderCore.AssemblyInfo.cs
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilderCore\ConfigurationBuilderCore\obj\Debug\netcoreapp2.0\ConfigurationBuilderCore.dll
+D:\NonGitCode\Code Scratchpad\Builder\ConfigurationBuilderCore\ConfigurationBuilderCore\obj\Debug\netcoreapp2.0\ConfigurationBuilderCore.pdb
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilderCore\ConfigurationBuilderCore\obj\Debug\netcoreapp2.0\ConfigurationBuilderCore.AssemblyInfoInputs.cache
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilderCore\ConfigurationBuilderCore\obj\Debug\netcoreapp2.0\ConfigurationBuilderCore.AssemblyInfo.cs
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilderCore\ConfigurationBuilderCore\obj\Debug\netcoreapp2.0\ConfigurationBuilderCore.dll
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilderCore\ConfigurationBuilderCore\obj\Debug\netcoreapp2.0\ConfigurationBuilderCore.pdb
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilderCore\ConfigurationBuilderCore\bin\Debug\netcoreapp2.0\ConfigurationBuilderCore.deps.json
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilderCore\ConfigurationBuilderCore\bin\Debug\netcoreapp2.0\ConfigurationBuilderCore.dll
+D:\NonGitCode\Solution\DLL Configuration Compiler\ConfigurationBuilderCore\ConfigurationBuilderCore\bin\Debug\netcoreapp2.0\ConfigurationBuilderCore.pdb

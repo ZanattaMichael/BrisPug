@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationBuilderCore", "ConfigurationBuilderCore\ConfigurationBuilderCore.csproj", "{B90A06B8-98DB-41DB-8194-00F85862B962}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F9E25B82-2A5A-4326-9D9B-6C673ACA3C4B}"
+	ProjectSection(SolutionItems) = preProject
+		..\ConfigurationBuilder\ConfigurationBuilder\AzureAutomationRunbook.cs = ..\ConfigurationBuilder\ConfigurationBuilder\AzureAutomationRunbook.cs
+		..\ConfigurationBuilder\ConfigurationBuilder\HTMLConfig.cs = ..\ConfigurationBuilder\ConfigurationBuilder\HTMLConfig.cs
+		..\ConfigurationBuilder\ConfigurationBuilder\HTMLObject.cs = ..\ConfigurationBuilder\ConfigurationBuilder\HTMLObject.cs
+		..\ConfigurationBuilder\ConfigurationBuilder\HTTPContent.cs = ..\ConfigurationBuilder\ConfigurationBuilder\HTTPContent.cs
+		..\ConfigurationBuilder\ConfigurationBuilder\RestBodyProperty.cs = ..\ConfigurationBuilder\ConfigurationBuilder\RestBodyProperty.cs
+		..\ConfigurationBuilder\ConfigurationBuilder\RunbookParameter.cs = ..\ConfigurationBuilder\ConfigurationBuilder\RunbookParameter.cs
+		..\ConfigurationBuilder\ConfigurationBuilder\ToHashTable.cs = ..\ConfigurationBuilder\ConfigurationBuilder\ToHashTable.cs
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B90A06B8-98DB-41DB-8194-00F85862B962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B90A06B8-98DB-41DB-8194-00F85862B962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B90A06B8-98DB-41DB-8194-00F85862B962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B90A06B8-98DB-41DB-8194-00F85862B962}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93D62BCC-4F97-48E8-A2D8-A2EEA6B48FC3}
+	EndGlobalSection
+EndGlobal
