@@ -191,15 +191,15 @@ function Add-TFSMemberToGroup {
 
         [Parameter(Mandatory)]
         [Object]
-        $Identity,
+        $GroupName,
 
+        [Parameter(Mandatory)]
         [String]
-        $Member
+        $MemberName
 
     )
 
     $ErrorActionPreference = 'Stop'
-
 
     $params = @{
         URI = "$URL/TeamFoundation/Administration/v3.0/IdentityManagementService.asmx?WSDL"
@@ -210,21 +210,14 @@ function Add-TFSMemberToGroup {
     # Connect to the WDSL
     $IdentityManagmentService = New-WebServiceProxy @params
 
-    $GroupIdentity = $IdentityManagmentService.ReadIdentities($null, $Identity, $null, 1, 1, $null, $null)
-    $MemberPersonIdentity = $IdentityManagmentService.ReadIdentities($null, $Member, $null, 1, 1, $null, $null)
+    $GroupIdentity = $IdentityManagmentService.ReadIdentities($null, $GroupName, $null, 1, 1, $null, $null)
+    $MemberPersonIdentity = $IdentityManagmentService.ReadIdentities($null, $MemberName, $null, 1, 1, $null, $null)
 
-    if (-not($GroupIdentity)) { Throw 'Cannot find group' }
+    if (-not($GroupIdentity)) { Throw 'Cannot find Group Identity' }
+    if (-not($MemberPersonIdentity)) { Throw 'Cannot find Member Identity' }
 
-    if ($NewDescription) {
-        $null = $IdentityManagmentService.UpdateApplicationGroup($GroupIdentity.Descriptor, 2, $NewDescription)
-    }
+    $null = $IdentityManagmentService.AddMemberToApplicationGroup($GroupIdentity.Descriptor, $MemberPersonIdentity.Descriptor)
 
-    if ($NewName) {
-        $null = $IdentityManagmentService.UpdateApplicationGroup($GroupIdentity.Descriptor, 1, $NewName)
-        $Identity = $NewName
-    }
-
-    Get-TFSSecurityGroup -URL $URL -Identity $Identity
-
+    Get-TFSSecurityGroup -URL $URL -Identity $GroupName
 
 }
